@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-controller-EmployeeController'>/**
+</span> * The EmployeeController acts as the command with asynchronous callback methods for successful
+ * and failed employee service calls.eError: &quot;undefined&quot; is not a function(evaluating &quot;controller.getStores()&quot;)
+ */
+Ext.define(&quot;CafeTownsend.controller.EmployeeController&quot;, {
+    extend: &quot;SenchaExtensions.mvc.controller.AbstractController&quot;,
+
+    requires: [
+        &quot;CafeTownsend.event.EmployeeEvent&quot;,
+        &quot;SenchaExtensions.mvc.service.rpc.Responder&quot;
+    ],
+
+<span id='CafeTownsend-controller-EmployeeController-property-inject'>    inject: [
+</span>        &quot;employeeService&quot;,
+        &quot;employeeStore&quot;,
+        &quot;logger&quot;
+    ],
+
+//    config: {
+//
+//        /**
+//         * @cfg {Object} employeeService The injected employee service from DeftJS.
+//         * @accessor
+//         */
+//        employeeService: null,
+//
+//        /**
+//         * @cfg {Object} employeeStore The injected employee store from DeftJS.
+//         * @accessor
+//         */
+//        employeeStore: null
+//    },
+
+<span id='CafeTownsend-controller-EmployeeController-event-CafeTownsend'>    /**
+</span>     * @event CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_SUCCESS
+     * Fired when the get employee service is successful.
+     */
+
+<span id='CafeTownsend-controller-EmployeeController-event-CafeTownsend'>    /**
+</span>     * @event CafeTownsend.event.AuthenticationEvent.GET_EMPLOYEE_LIST_FAILURE
+     * Fired when the get employee service fails.
+     */
+
+<span id='CafeTownsend-controller-EmployeeController-method-setupGlobalEventListeners'>    /**
+</span>     * Sets up global event bus handlers.
+     * @protected
+     */
+    setupGlobalEventListeners: function() {
+        this.callParent();
+        this.logger.debug(&quot;setupGlobalEventListeners&quot;);
+
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST, this.onGetEmployeeList, this);
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE, this.onCreateEmployee, this);
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE, this.onUpdateEmployee, this);
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE, this.onDeleteEmployee, this);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-getEmployeeList'>    /**
+</span>     * Performs get employees by using the referenced service and sets up the service success and failure
+     * callback handlers.
+     */
+    getEmployeeList: function() {
+        this.logger.debug(&quot;getEmployeeList&quot;);
+
+        this.executeServiceCall(this.employeeService, this.employeeService.getEmployeeList, null, this.getEmployeeListSuccess, this.getEmployeeListFailure, this);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-createEmployee'>    /**
+</span>     * Performs create employee by using the referenced service and sets up the service success and failure
+     * callback handlers.
+     *
+     * @param {CafeTownsend.model.EmployeeModel} employee The employee to create.
+     */
+    createEmployee: function(employee) {
+        this.logger.debug(&quot;createEmployee&quot;);
+
+        this.executeServiceCall(this.employeeService, this.employeeService.createEmployee, [employee], this.createEmployeeSuccess, this.createEmployeeFailure, this);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-updateEmployee'>    /**
+</span>     * Performs update employee by using the referenced service and sets up the service success and failure
+     * callback handlers.
+     *
+     * @param {CafeTownsend.model.EmployeeModel} employee The employee to update.
+     */
+    updateEmployee: function(employee) {
+        this.logger.debug(&quot;updateEmployee&quot;);
+
+        this.executeServiceCall(this.employeeService, this.employeeService.updateEmployee, [employee], this.updateEmployeeSuccess, this.updateEmployeeFailure, this);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-deleteEmployee'>    /**
+</span>     * Performs delete employee by using the referenced service and sets up the service success and failure
+     * callback handlers.
+     *
+     * @param {CafeTownsend.model.EmployeeModel} employee The employee to delete.
+     */
+    deleteEmployee: function(employee) {
+        this.logger.debug(&quot;deleteEmployee&quot;);
+
+        this.executeServiceCall(this.employeeService, this.employeeService.deleteEmployee, [employee], this.deleteEmployeeSuccess, this.deleteEmployeeFailure, this);
+    },
+
+    ////////////////////////////////////////////////
+    // SERVICE SUCCESS/FAULT HANDLERS
+    ////////////////////////////////////////////////
+
+<span id='CafeTownsend-controller-EmployeeController-method-getEmployeeListSuccess'>    /**
+</span>     * Handles the successful get employees service call and takes the response data packet as a parameter.
+     * Fires off the corresponding success event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the successful service call.
+     */
+    getEmployeeListSuccess: function(response) {
+        this.logger.info(&quot;getEmployeeListSuccess&quot;);
+
+        // var store = this.getEmployeeStore();
+        var store = this.employeeStore;
+        store.setData(response.employeeList);
+
+        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_SUCCESS);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-getEmployeeListFailure'>    /**
+</span>     * Handles the failed get employees service call and takes the response data packet as a parameter.
+     * Fires off the corresponding failure event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the failed service call.
+     */
+    getEmployeeListFailure: function(response) {
+        this.logger.warn(&quot;getEmployeeListFailure&quot;);
+
+        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_FAILURE);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-createEmployeeSuccess'>    /**
+</span>     * Handles the successful create employee service call and takes the response data packet as a parameter.
+     * Fires off the corresponding success event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the successful service call.
+     */
+    createEmployeeSuccess: function(response) {
+        this.logger.info(&quot;createEmployeeSuccess&quot;);
+
+        // var store = this.getEmployeeStore();
+        var store = this.employeeStore;
+        store.add(response.employee);
+
+        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_SUCCESS);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-createEmployeeFailure'>    /**
+</span>     * Handles the failed create employee service call and takes the response data packet as a parameter.
+     * Fires off the corresponding failure event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the failed service call.
+     */
+    createEmployeeFailure: function(response) {
+        this.logger.warn(&quot;createEmployeeFailure&quot;);
+
+        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_FAILURE);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-updateEmployeeSuccess'>    /**
+</span>     * Handles the successful update employee service call and takes the response data packet as a parameter.
+     * Fires off the corresponding success event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the successful service call.
+     */
+    updateEmployeeSuccess: function(response) {
+        this.logger.info(&quot;updateEmployeeSuccess&quot;);
+
+        // var store = this.getEmployeeStore();
+        var store = this.employeeStore;
+        store.update(response.employee);
+
+        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_SUCCESS);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-updateEmployeeFailure'>    /**
+</span>     * Handles the failed update employee service call and takes the response data packet as a parameter.
+     * Fires off the corresponding failure event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the failed service call.
+     */
+    updateEmployeeFailure: function(response) {
+        this.logger.warn(&quot;updateEmployeeFailure&quot;);
+
+        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_FAILURE);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-deleteEmployeeSuccess'>    /**
+</span>     * Handles the successful delete employee service call and takes the response data packet as a parameter.
+     * Fires off the corresponding success event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the successful service call.
+     */
+    deleteEmployeeSuccess: function(response) {
+        this.logger.info(&quot;deleteEmployeeSuccess&quot;);
+
+        // var store = this.getEmployeeStore();
+        var store = this.employeeStore;
+        var employee = store.findRecord(&quot;id&quot;, response.employee.id);
+
+        store.remove(employee);
+
+        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_SUCCESS);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-deleteEmployeeFailure'>    /**
+</span>     * Handles the failed delete employee service call and takes the response data packet as a parameter.
+     * Fires off the corresponding failure event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the failed service call.
+     */
+    deleteEmployeeFailure: function(response) {
+        this.logger.warn(&quot;deleteEmployeeFailure&quot;);
+
+        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_FAILURE);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+    ////////////////////////////////////////////////
+    // EVENT BUS HANDLERS
+    ////////////////////////////////////////////////
+
+<span id='CafeTownsend-controller-EmployeeController-method-onGetEmployeeList'>    /**
+</span>     * Handles the get employee event on the application-level event bus. Calls a functional method that's more
+     * testable than this event handler.
+     *
+     * @param {CafeTownsend.event.EmployeeEvent} event Reference to the employee event.
+     */
+    onGetEmployeeList: function(event) {
+        this.logger.debug(&quot;onGetEmployeeList&quot;);
+
+        this.getEmployeeList();
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-onCreateEmployee'>    /**
+</span>     * Handles the create employee event on the application-level event bus. Calls a functional method that's more
+     * testable than this event handler.
+     *
+     * @param {CafeTownsend.event.EmployeeEvent} event Reference to the employee event. Contains a reference to the
+     * employee.
+     */
+    onCreateEmployee: function(event) {
+        this.logger.debug(&quot;onCreateEmployee&quot;);
+
+        this.createEmployee(event.employee);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-onUpdateEmployee'>    /**
+</span>     * Handles the update employee event on the application-level event bus. Calls a functional method that's more
+     * testable than this event handler.
+     *
+     * @param {CafeTownsend.event.EmployeeEvent} event Reference to the employee event. Contains a reference to the
+     * employee.
+     */
+    onUpdateEmployee: function(event) {
+        this.logger.debug(&quot;onUpdateEmployee&quot;);
+
+        this.updateEmployee(event.employee);
+    },
+
+<span id='CafeTownsend-controller-EmployeeController-method-onDeleteEmployee'>    /**
+</span>     * Handles the delete employee event on the application-level event bus. Calls a functional method that's more
+     * testable than this event handler.
+     *
+     * @param {CafeTownsend.event.EmployeeEvent} event Reference to the employee event. Contains a reference to the
+     * employee.
+     */
+    onDeleteEmployee: function(event) {
+        this.logger.debug(&quot;onDeleteEmployee&quot;);
+
+        this.deleteEmployee(event.employee);
+    }
+
+});
+
+</pre>
+</body>
+</html>

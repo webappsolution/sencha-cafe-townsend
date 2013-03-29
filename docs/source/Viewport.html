@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-view-extjs-Viewport'>/**
+</span> * The basic Viewport for the application.
+ *
+ * &lt;p&gt;
+ * All views are purely layout and don't contain event handling,
+ * application or business logic; this is all done in the view's corresponding mediator.
+ * &lt;/p&gt;
+ */
+Ext.define(&quot;CafeTownsend.view.extjs.Viewport&quot;, {
+    extend: &quot;Ext.container.Viewport&quot;,
+    alias: &quot;widget.extjsViewport&quot;,
+<span id='CafeTownsend-view-extjs-Viewport-property-controller'>    controller: &quot;CafeTownsend.mediator.extjs.ViewportMediator&quot;,
+</span><span id='CafeTownsend-view-extjs-Viewport-property-width'>    width: 800,
+</span>
+    requires: [
+        &quot;CafeTownsend.view.extjs.LoginView&quot;,
+        &quot;CafeTownsend.view.extjs.EmployeeListView&quot;,
+        &quot;CafeTownsend.view.extjs.EmployeeDetailView&quot;
+    ],
+
+    config: {
+<span id='CafeTownsend-view-extjs-Viewport-cfg-width'>        width: 800,
+</span><span id='CafeTownsend-view-extjs-Viewport-cfg-currentItem'>        currentItem: null
+</span>    },
+
+<span id='CafeTownsend-view-extjs-Viewport-property-layout'>    layout: {
+</span>        align: &quot;center&quot;,
+        pack: &quot;center&quot;,
+        type: &quot;vbox&quot;
+    },
+
+<span id='CafeTownsend-view-extjs-Viewport-property-items'>    items: [
+</span>        {
+            xtype: &quot;extjsLoginView&quot;,
+            itemId: 'login',
+            hidden: false
+        },
+        {
+            xtype: &quot;extjsEmployeeListView&quot;,
+            itemId: 'emplist',
+            hidden: true
+        },
+        {
+            xtype: &quot;extjsEmployeeDetailView&quot;,
+            itemId: 'empdetaiil',
+            hidden: true
+        }
+    ],
+
+<span id='CafeTownsend-view-extjs-Viewport-method-setView'>    // TODO: BMR: Remove all logic from views
+</span>    setView: function(view) {
+        console.log('Viewport.setView: ' + view);
+        //this.getView().items.getAt(1).show();
+        for ( var i=0; i&lt;this.items.length; i++)
+        {
+            var id = this.items.getAt(i).getItemId();
+            if (id == view)
+            {
+                this.items.getAt(i).show();
+            } else {
+                this.items.getAt(i).hide();
+            }
+        }
+    }
+
+}, function() {
+    this.getCurrentItem = 'login';
+    console.log('viewport create, currentitem = ' + this.getCurrentItem);
+});
+
+
+</pre>
+</body>
+</html>

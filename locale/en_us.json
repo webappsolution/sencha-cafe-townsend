@@ -1,0 +1,46 @@
+{
+    /////////////////////////////////////////////
+    // LOGIN
+    /////////////////////////////////////////////
+    "login": {
+        "title": "Login",
+        "username": "Username",
+        "password": "Password",
+        "passwordHint": "Hint: password",
+        "submit": "Log In",
+        "reset": "Clear",
+        "signingIn" : "Signing In...",
+        "credentialsRequired": "Please enter your username and password.",
+        "loginFailed": "Login failed. Please enter the correct credentials."
+    },
+
+    /////////////////////////////////////////////
+    // EMPLOYEE LIST
+    /////////////////////////////////////////////
+    "employeeList": {
+        "title": "Employees",
+        "logOff": "Log Off",
+        "new": "New",
+        "search": "live search",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "loading": "Loading Employees...",
+        "noEmployees": "No Employees found."
+    },
+
+    /////////////////////////////////////////////
+    // EMPLOYEE DETAIL
+    /////////////////////////////////////////////
+    "employeeDetail": {
+        "title": "Employee",
+        "back": "Back",
+        "save": "Save",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phoneNumber": "Phone Number",
+        "delete": "Delete",
+        "creatingEmployee": "Creating Employee...",
+        "updatingEmployee": "Updating Employee...",
+        "deletingEmployee": "Deleting Employee..."
+    }
+}

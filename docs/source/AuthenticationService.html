@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-service-AuthenticationService'>/**
+</span> * The authentication service object. Contains concrete Ajax calls.
+ */
+Ext.define(&quot;CafeTownsend.service.AuthenticationService&quot;, {
+    extend: &quot;SenchaExtensions.mvc.service.AbstractService&quot;,
+
+<span id='CafeTownsend-service-AuthenticationService-property-inject'>    inject: [
+</span>        &quot;logger&quot;
+    ],
+
+<span id='CafeTownsend-service-AuthenticationService-method-authenticate'>    /**
+</span>     * The login ajax service call. Hits a json service and handles the success and fault accordingly.
+     *
+     * @param {String} username The username being authenticated.
+     * @param {String} password The password being authenticated.
+     */
+    authenticate: function(username, password) {
+        this.logger.debug(&quot;authenticate: username = &quot; + username + &quot;, password = &quot; + password);
+
+        var deferred = Ext.create(&quot;Deft.promise.Deferred&quot;);
+        var me = this;
+
+        Ext.Ajax.request({
+            url: &quot;data/login-success.json&quot;,
+//            url: &quot;http://localhost:8080/SenchaDemo&quot;,
+            method: &quot;post&quot;,
+            params: {
+                j_username: username,
+                j_password: password
+            },
+
+            success: function(response) {
+                this.logger.debug(&quot;authenticate.success&quot;);
+                me.success(response, deferred);
+            },
+
+            failure: function(response) {
+                this.logger.debug(&quot;authenticate.failure&quot;);
+                me.failure(response, deferred);
+            }
+        });
+
+        return deferred.promise;
+    },
+
+<span id='CafeTownsend-service-AuthenticationService-method-logout'>    /**
+</span>     * The logout ajax service call. Hits a json service and handles the success and fault accordingly.
+     */
+    logout: function() {
+        this.logger.debug(&quot;logout&quot;);
+
+        var me = this;
+
+        Ext.Ajax.request({
+            url: &quot;data/logout-success.json&quot;,
+            method: &quot;post&quot;,
+
+            success: function(response) {
+                this.logger.debug(&quot;logout.success&quot;);
+
+                var response = Ext.JSON.decode(response.responseText);
+                me.success(response);
+            },
+
+            failure: function(response) {
+                this.logger.debug(&quot;logout.failure&quot;);
+                me.failure(response);
+            }
+        });
+    }
+
+});
+
+</pre>
+</body>
+</html>

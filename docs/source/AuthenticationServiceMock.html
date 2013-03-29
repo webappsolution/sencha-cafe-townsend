@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-service-mock-AuthenticationServiceMock'>/**
+</span> * The mock authentication service object.
+ */
+Ext.define(&quot;CafeTownsend.service.mock.AuthenticationServiceMock&quot;, {
+    extend: &quot;SenchaExtensions.mvc.service.mock.AbstractServiceMock&quot;,
+
+<span id='CafeTownsend-service-mock-AuthenticationServiceMock-property-inject'>    inject: [
+</span>        &quot;logger&quot;
+    ],
+
+<span id='CafeTownsend-service-mock-AuthenticationServiceMock-method-authenticate'>    /**
+</span>     * The mock login service call.
+     *
+     * @param {String} username The username being authenticated.
+     * @param {String} password The password being authenticated.
+     */
+    authenticate: function(username, password) {
+        this.logger.debug(&quot;authenticate: username = &quot; + username + &quot;, password = &quot; + password);
+
+        if(
+            (password == &quot;a&quot;) ||
+            (password == &quot;deftjs&quot;) ||
+            (password == &quot;password&quot;) ||
+            (password == &quot;qwerty&quot;)
+            ) {
+
+            var response = {
+                success: true,
+                sessionToken: &quot;qwerty1234567890&quot;,
+                user: {
+                    firstName:&quot;Brian&quot;,
+                    lastName:&quot;Riley&quot;
+                }
+            };
+
+            return this.delayedSuccess(response);
+        }
+        else {
+
+            var response = {
+                success: false
+            };
+
+            return this.delayedFailure(response);
+        }
+    },
+
+<span id='CafeTownsend-service-mock-AuthenticationServiceMock-method-logout'>    /**
+</span>     * The mock logout service call.
+     */
+    logout: function() {
+        this.logger.debug(&quot;logout&quot;);
+
+        var response = {
+            success: true
+        };
+
+        return this.delayedSuccess(response, 0);
+    }
+});
+
+</pre>
+</body>
+</html>

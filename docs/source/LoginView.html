@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-view-extjs-LoginView'>/**
+</span> * The basic login view for the application.
+ *
+ * &lt;p&gt;
+ * All views are purely layout and don't contain event handling,
+ * application or business logic; this is all done in the view's corresponding mediator.
+ * &lt;/p&gt;
+ */
+Ext.define(&quot;CafeTownsend.view.extjs.LoginView&quot;, {
+    extend: &quot;Ext.Container&quot;,
+    alias: &quot;widget.extjsLoginView&quot;,
+<span id='CafeTownsend-view-extjs-LoginView-property-controller'>    controller: &quot;CafeTownsend.mediator.extjs.LoginMediator&quot;,
+</span>
+<span id='CafeTownsend-view-extjs-LoginView-property-layout'>    layout: {
+</span>        type: &quot;vbox&quot;,
+        pack: &quot;center&quot;,
+        align: &quot;center&quot;
+    },
+
+<span id='CafeTownsend-view-extjs-LoginView-property-items'>    items: [
+</span>        {
+            xtype: &quot;form&quot;,
+            title: &quot;Login&quot;,
+
+            frame: true,
+            bodyPadding: &quot;5px 5px 0&quot;,
+            width: 350,
+//    height: 150,
+            fieldDefaults: {
+                labelWidth: 125,
+                msgTarget: &quot;side&quot;,
+                autoFitErrors: false
+            },
+            defaults: {
+                width: 300,
+                inputType: &quot;password&quot;
+            },
+            defaultType: &quot;textfield&quot;,
+
+            buttons: [
+                {text: 'Log In', id:'logInButton'}
+            ],
+
+            items: [
+                {
+                    fieldLabel: &quot;Username&quot;,
+                    itemId: &quot;usernameTextField&quot;,
+                    inputType: &quot;text&quot;
+                },
+                {
+                    fieldLabel: &quot;Password&quot;,
+                    itemId: &quot;passwordTextField&quot;
+                },
+                {
+                    xtype: &quot;label&quot;,
+                    html: &quot;Hint: password&quot;
+                },
+//                {
+//                    xtype: &quot;button&quot;,
+//                    itemId: &quot;logInButton&quot;,
+////                    scale: &quot;small&quot;,
+////                    action: &quot;login&quot;,
+////                    padding: &quot;10px&quot;,
+////                    formBind: true,
+//                    text: &quot;Log In&quot;
+//                },
+                {
+                    xtype: &quot;label&quot;,
+                    html: &quot;Login failed. Please enter the correct credentials.&quot;,
+                    itemId: &quot;signInFailedLabel&quot;,
+                    hidden: true,
+                    hideAnimation: &quot;fadeOut&quot;,
+                    showAnimation: &quot;fadeIn&quot;,
+                    style: &quot;color:#990000;margin:5px 0px;&quot;
+                }
+            ]
+        }
+
+    ]
+});
+
+
+</pre>
+</body>
+</html>

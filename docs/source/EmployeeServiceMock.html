@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-service-mock-EmployeeServiceMock'>/**
+</span> * The mock authentication service object.
+ */
+Ext.define(&quot;CafeTownsend.service.mock.EmployeeServiceMock&quot;, {
+    extend: &quot;SenchaExtensions.mvc.service.mock.AbstractServiceMock&quot;,
+
+<span id='CafeTownsend-service-mock-EmployeeServiceMock-property-inject'>    inject: [
+</span>        &quot;logger&quot;
+    ],
+
+<span id='CafeTownsend-service-mock-EmployeeServiceMock-method-getEmployeeList'>    /**
+</span>     * The mock service call.
+     */
+    getEmployeeList: function() {
+        this.logger.debug(&quot;getEmployeeList&quot;);
+
+        var response = {
+            success: true,
+            employeeList: [
+                { id: 0,    firstName: &quot;Tommy&quot;,   lastName: &quot;Maintz&quot;,   phoneNumber: &quot;508-566-6666&quot; },
+                { id: 1,    firstName: &quot;Rob&quot;,     lastName: &quot;Dougan&quot;,   phoneNumber: &quot;508-566-6666&quot; },
+                { id: 2,    firstName: &quot;Ed&quot;,      lastName: &quot;Spencer&quot;,  phoneNumber: &quot;508-566-6666&quot; },
+                { id: 3,    firstName: &quot;Jamie&quot;,   lastName: &quot;Avins&quot;,    phoneNumber: &quot;508-566-6666&quot; },
+                { id: 4,    firstName: &quot;Aaron&quot;,   lastName: &quot;Conran&quot;,   phoneNumber: &quot;508-566-6666&quot; },
+                { id: 5,    firstName: &quot;Dave&quot;,    lastName: &quot;Kaneda&quot;,   phoneNumber: &quot;508-566-6666&quot; },
+                { id: 6,    firstName: &quot;Jacky&quot;,   lastName: &quot;Nguyen&quot;,   phoneNumber: &quot;508-566-6666&quot; },
+                { id: 7,    firstName: &quot;Abraham&quot;, lastName: &quot;Elias&quot;,    phoneNumber: &quot;508-566-6666&quot; },
+                { id: 8,    firstName: &quot;Jay&quot;,     lastName: &quot;Robinson&quot;, phoneNumber: &quot;508-566-6666&quot; },
+                { id: 9,    firstName: &quot;Nigel&quot;,   lastName: &quot;White&quot;,    phoneNumber: &quot;508-566-6666&quot; },
+                { id: 10,   firstName: &quot;Don&quot;,     lastName: &quot;Griffin&quot;,  phoneNumber: &quot;508-566-6666&quot; },
+                { id: 11,   firstName: &quot;Nico&quot;,    lastName: &quot;Ferrero&quot;,  phoneNumber: &quot;508-566-6666&quot; },
+                { id: 12,   firstName: &quot;Jason&quot;,   lastName: &quot;Johnston&quot;, phoneNumber: &quot;508-566-6666&quot; }
+            ]
+        };
+
+        return this.delayedSuccess(response);
+    },
+
+<span id='CafeTownsend-service-mock-EmployeeServiceMock-method-createEmployee'>    /**
+</span>     * The mock service call.
+     */
+    createEmployee: function(employee) {
+        this.logger.debug(&quot;createEmployee&quot;);
+
+        var response = {
+            success: true,
+            employee: {
+                id: this.getRandomInt(1000, 99999),
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                email: employee.email,
+                phoneNumber: employee.phoneNumber,
+                startDate: employee.startDate
+            }
+        };
+
+        return this.delayedSuccess(response);
+    },
+
+<span id='CafeTownsend-service-mock-EmployeeServiceMock-method-updateEmployee'>    /**
+</span>     * The mock service call.
+     */
+    updateEmployee: function(employee) {
+        this.logger.debug(&quot;updateEmployee: id = &quot;, employee.id);
+
+        var response = {
+            success: true,
+            employee: {
+                id: employee.id,
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                email: employee.email,
+                phoneNumber: employee.phoneNumber,
+                startDate: employee.startDate
+            }
+        };
+
+        return this.delayedSuccess(response);
+    },
+
+<span id='CafeTownsend-service-mock-EmployeeServiceMock-method-deleteEmployee'>    /**
+</span>     * The mock service call.
+     */
+    deleteEmployee: function(employee) {
+        this.logger.debug(&quot;deleteEmployee: id = &quot;, employee.id);
+
+        var response = {
+            success: true,
+            employee: {
+                id: employee.id,
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                email: employee.email,
+                phoneNumber: employee.phoneNumber,
+                startDate: employee.startDate
+            }
+        };
+
+        return this.delayedSuccess(response);
+    }
+});
+
+</pre>
+</body>
+</html>

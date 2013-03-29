@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-event-NavigationEvent'>/**
+</span> * The authentication event contains data and event types to login/out the user.
+ */
+Ext.define(&quot;CafeTownsend.event.NavigationEvent&quot;, {
+    extend: &quot;SenchaExtensions.mvc.event.AbstractEvent&quot;,
+
+    statics: {
+<span id='CafeTownsend-event-NavigationEvent-property-NAVIGATE'>        NAVIGATE:                           &quot;CafeTownsend.event.NavigationEvent.NAVIGATE&quot;,
+</span>
+<span id='CafeTownsend-event-NavigationEvent-property-RIGHT'>        RIGHT:                              &quot;CafeTownsend.event.NavigationEvent.RIGHT&quot;,
+</span><span id='CafeTownsend-event-NavigationEvent-property-LEFT'>        LEFT:                               &quot;CafeTownsend.event.NavigationEvent.LEFT&quot;,
+</span>
+<span id='CafeTownsend-event-NavigationEvent-property-ACTION_BACK_SHOW_EMPLOYEE_LIST'>        ACTION_BACK_SHOW_EMPLOYEE_LIST:     &quot;CafeTownsend.event.NavigationEvent.ACTION_BACK_SHOW_EMPLOYEE_LIST&quot;,
+</span><span id='CafeTownsend-event-NavigationEvent-property-ACTION_SHOW_EMPLOYEE_DETAIL'>        ACTION_SHOW_EMPLOYEE_DETAIL:        &quot;CafeTownsend.event.NavigationEvent.ACTION_SHOW_EMPLOYEE_DETAIL&quot;
+</span>    },
+
+<span id='CafeTownsend-event-NavigationEvent-property-action'>    action: &quot;&quot;,
+</span><span id='CafeTownsend-event-NavigationEvent-property-direction'>    direction: &quot;&quot;,
+</span>
+<span id='CafeTownsend-event-NavigationEvent-method-constructor'>    /**
+</span>     *
+     * @param type          The event type.
+     * @param action        The string action that maps to the navigation.
+     * @param direction     An optional direction property for navigation.
+     */
+    constructor: function(type, action, direction) {
+        this.callParent(arguments);
+
+        this.action = action;
+        this.direction = direction;
+    }
+})</pre>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-controller-AuthenticationController'>/**
+</span> * The AuthenticationController acts like a service controller with asynchronous callback methods for successful
+ * and failed authentication service calls.
+ */
+Ext.define(&quot;CafeTownsend.controller.AuthenticationController&quot;, {
+    extend: &quot;SenchaExtensions.mvc.controller.AbstractController&quot;,
+
+    requires: [
+        &quot;CafeTownsend.event.AuthenticationEvent&quot;,
+        &quot;SenchaExtensions.mvc.service.rpc.Responder&quot;
+    ],
+
+<span id='CafeTownsend-controller-AuthenticationController-property-inject'>    inject: [
+</span>        &quot;authenticationService&quot;,
+        &quot;employeeStore&quot;,
+        &quot;authenticationServiceClass&quot;,
+        &quot;logger&quot;
+    ],
+
+    // NOTE: creating config placeholder properties for the injected service doesn't seem to work for extjs
+    // however, just putting them in the inject property seems to do the trick but you need to access
+    // them without the getter
+//    config: {
+//        /**
+//         * @cfg {Object} authenticationService The injected authentication service from DeftJS.
+//         * @accessor
+//         */
+//        authenticationService: null
+//
+//        /**
+//         * @cfg {Object} employeeStore The injected employee store from DeftJS.
+//         * @accessor
+//         */
+//        employeeStore: null
+//    },
+
+<span id='CafeTownsend-controller-AuthenticationController-event-CafeTownsend'>    /**
+</span>     * @event CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS
+     * Fired when the login service is successful.
+     */
+
+<span id='CafeTownsend-controller-AuthenticationController-event-CafeTownsend'>    /**
+</span>     * @event CafeTownsend.event.AuthenticationEvent.LOGIN_FAILURE
+     * Fired when the login service fails.
+     */
+
+<span id='CafeTownsend-controller-AuthenticationController-event-CafeTownsend'>    /**
+</span>     * @event CafeTownsend.event.AuthenticationEvent.LOGOUT_SUCCESS
+     * Fired when the logout service is successful.
+     */
+
+<span id='CafeTownsend-controller-AuthenticationController-event-CafeTownsend'>    /**
+</span>     * @event CafeTownsend.event.AuthenticationEvent.LOGOUT_FAILURE
+     * Fired when the logout service fails.
+     */
+
+<span id='CafeTownsend-controller-AuthenticationController-method-setupGlobalEventListeners'>    /**
+</span>     * Sets up global event bus handlers.
+     * @protected
+     */
+    setupGlobalEventListeners: function() {
+        this.callParent();
+        this.logger.debug(&quot;setupGlobalEventListeners&quot;);
+
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.AuthenticationEvent.LOGIN, this.onLogin, this);
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.AuthenticationEvent.LOGOUT, this.onLogout, this);
+    },
+
+<span id='CafeTownsend-controller-AuthenticationController-method-login'>    /**
+</span>     * Performs authentication by using the referenced service and sets up the service success and failure
+     * callback handlers.
+     *
+     * @param {String} username The username being passed to authenticate the user.
+     * @param {String} password The password being passed to authenticate the user.
+     */
+    login: function(username, password) {
+        this.logger.debug(&quot;login: username = &quot; + username + &quot;, password = &quot; + password);
+
+//        var service = this.getService(this.authenticationServiceClass);
+//        this.authenticationService.setUsePromise(true);
+        this.executeServiceCall(this.authenticationService, this.authenticationService.authenticate, [username, password], this.loginSuccess, this.loginFailure, this);
+    },
+
+<span id='CafeTownsend-controller-AuthenticationController-method-logout'>    /**
+</span>     * Performs logout by using the referenced service and sets up the service success and failure
+     * callback handlers.
+     */
+    logout: function() {
+        this.logger.debug(&quot;logout&quot;);
+
+        this.executeServiceCall(this.authenticationService, this.authenticationService.logout, null, this.logoutSuccess, this.logoutFailure, this);
+    },
+
+<span id='CafeTownsend-controller-AuthenticationController-method-resetSessionData'>    /**
+</span>     * Resets the session data.
+     */
+    resetSessionData: function() {
+        this.logger.info(&quot;resetSessionData&quot;);
+
+        this.setSessionToken(null);
+        this.employeeStore.setData(null);
+    },
+
+    ////////////////////////////////////////////////
+    // SERVICE SUCCESS/FAULT HANDLERS
+    ////////////////////////////////////////////////
+
+<span id='CafeTownsend-controller-AuthenticationController-method-loginSuccess'>    /**
+</span>     * Handles the successful login service call and takes the response data packet as a parameter.
+     * Fires off the corresponding success event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the successful service call.
+     */
+    loginSuccess: function(response) {
+        this.logger.info(&quot;loginSuccess&quot;);
+
+        // The server will send a token that can be used throughout the app to confirm that the user is authenticated.
+        this.setSessionToken(response.sessionToken);
+
+        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-AuthenticationController-method-loginFailure'>    /**
+</span>     * Handles the failed login service call and takes the response data packet as a parameter.
+     * Fires off the corresponding failure event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the failed service call.
+     */
+    loginFailure: function(response) {
+        this.logger.warn(&quot;loginFailure&quot;);
+
+        this.resetSessionData();
+
+        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGIN_FAILURE);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-AuthenticationController-method-logoutSuccess'>    /**
+</span>     * Handles the successful logout service call and takes the response data packet as a parameter.
+     * Fires off the corresponding success event on the application-level event bus. Resets the session data.
+     *
+     * @param {Object} response The response data packet from the successful service call.
+     */
+    logoutSuccess: function(response) {
+        this.logger.info(&quot;logoutSuccess&quot;);
+
+        this.resetSessionData();
+
+        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGOUT_SUCCESS);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+<span id='CafeTownsend-controller-AuthenticationController-method-logoutFailure'>    /**
+</span>     * Handles the failed logout service call and takes the response data packet as a parameter.
+     * Fires off the corresponding failure event on the application-level event bus.
+     *
+     * @param {Object} response The response data packet from the failed service call.
+     */
+    logoutFailure: function(response) {
+        this.logger.warn(&quot;logoutFailure&quot;);
+
+        this.resetSessionData();
+
+        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGOUT_FAILURE);
+        this.eventBus.dispatchGlobalEvent(evt);
+    },
+
+    ////////////////////////////////////////////////
+    // EVENT BUS HANDLERS
+    ////////////////////////////////////////////////
+
+<span id='CafeTownsend-controller-AuthenticationController-method-onLogin'>    /**
+</span>     * Handles the login event on the application-level event bus. Grabs the username and password
+     * and calls a functional method that's more testable than this event handler.
+     *
+     * @param {CafeTownsend.event.AuthenticationEvent} event Reference to the login event. Contains the username and password.
+     */
+    onLogin: function(event) {
+        var username = event.username;
+        var password = event.password;
+        this.logger.debug(&quot;onLogin&quot;);
+
+        this.login(username, password);
+    },
+
+<span id='CafeTownsend-controller-AuthenticationController-method-onLogout'>    /**
+</span>     * Handles the simple logout event on the application-level event bus and calls a functional method that's more
+     * testable than this event handler.
+     *
+     * @param {CafeTownsend.event.AuthenticationEvent} event Reference to the logout event.
+     */
+    onLogout: function(event) {
+        this.logger.debug(&quot;onLogout&quot;);
+
+        this.logout();
+    }
+
+});
+
+</pre>
+</body>
+</html>

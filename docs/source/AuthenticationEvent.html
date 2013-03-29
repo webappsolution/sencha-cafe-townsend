@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-event-AuthenticationEvent'>/**
+</span> * The authentication event contains data and event types to login/out the user.
+ */
+Ext.define(&quot;CafeTownsend.event.AuthenticationEvent&quot;, {
+    extend: &quot;SenchaExtensions.mvc.event.AbstractEvent&quot;,
+
+    statics: {
+
+<span id='CafeTownsend-event-AuthenticationEvent-property-LOGIN'>        /**
+</span>         * The login event type.
+         */
+        LOGIN:          &quot;CafeTownsend.event.AuthenticationEvent.LOGIN&quot;,
+
+<span id='CafeTownsend-event-AuthenticationEvent-property-LOGIN_SUCCESS'>        /**
+</span>         * The login success event type.
+         */
+        LOGIN_SUCCESS:  &quot;CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS&quot;,
+
+<span id='CafeTownsend-event-AuthenticationEvent-property-LOGIN_FAILURE'>        /**
+</span>         * The login failure event type.
+         */
+        LOGIN_FAILURE:  &quot;CafeTownsend.event.AuthenticationEvent.LOGIN_FAILURE&quot;,
+
+<span id='CafeTownsend-event-AuthenticationEvent-property-LOGOUT'>        /**
+</span>         * The logout event type.
+         */
+        LOGOUT:         &quot;CafeTownsend.event.AuthenticationEvent.LOGOUT&quot;,
+
+<span id='CafeTownsend-event-AuthenticationEvent-property-LOGOUT_SUCCESS'>        /**
+</span>         * The logout success event type.
+         */
+        LOGOUT_SUCCESS: &quot;CafeTownsend.event.AuthenticationEvent.LOGOUT_SUCCESS&quot;,
+
+<span id='CafeTownsend-event-AuthenticationEvent-property-LOGOUT_FAILURE'>        /**
+</span>         * The logout failure event type.
+         */
+        LOGOUT_FAILURE: &quot;CafeTownsend.event.AuthenticationEvent.LOGOUT_FAILURE&quot;
+    },
+
+<span id='CafeTownsend-event-AuthenticationEvent-property-readOnly'>    /**
+</span>     * @property {String} [readOnly=false]
+     * The username property usually associated with user login.
+     */
+    username: &quot;&quot;,
+
+<span id='CafeTownsend-event-AuthenticationEvent-property-readOnly'>    /**
+</span>     * @property {String} [readOnly=false]
+     * The password property usually associated with user login.
+     */
+    password: &quot;&quot;,
+
+<span id='CafeTownsend-event-AuthenticationEvent-method-constructor'>    /**
+</span>     * Constructor. Allows the username and password for authentication to be set on the event.
+     *
+     * @param {String} type The event type.
+     * @param {String} username The username being passed to authenticate the user.
+     * @param {String} password The password being passed to authenticate the user.
+     */
+    constructor: function(type, username, password) {
+        this.callParent(arguments);
+
+        this.username = username;
+        this.password = password;
+    }
+})</pre>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-event-EmployeeEvent'>/**
+</span> * The employee event contains data and event types to perform CRUD operations on employees.
+ */
+Ext.define(&quot;CafeTownsend.event.EmployeeEvent&quot;, {
+    extend: &quot;SenchaExtensions.mvc.event.AbstractEvent&quot;,
+    
+    statics: {
+
+<span id='CafeTownsend-event-EmployeeEvent-property-GET_EMPLOYEE_LIST'>        /**
+</span>         * The get employee list event type.
+         */
+        GET_EMPLOYEE_LIST:          &quot;CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-GET_EMPLOYEE_LIST_SUCCESS'>        /**
+</span>         * The get employee list success event type.
+         */
+        GET_EMPLOYEE_LIST_SUCCESS:  &quot;CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_SUCCESS&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-GET_EMPLOYEE_LIST_FAILURE'>        /**
+</span>         * The get employee list failure event type.
+         */
+        GET_EMPLOYEE_LIST_FAILURE:  &quot;CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_FAILURE&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-GET_EMPLOYEE'>        /**
+</span>         * The get employee event type.
+         */
+        GET_EMPLOYEE:               &quot;CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-GET_EMPLOYEE_SUCCESS'>        /**
+</span>         * The get employee success event type.
+         */
+        GET_EMPLOYEE_SUCCESS:       &quot;CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_SUCCESS&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-GET_EMPLOYEE_FAILURE'>        /**
+</span>         * The get employee failure event type.
+         */
+        GET_EMPLOYEE_FAILURE:       &quot;CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_FAILURE&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-CREATE_EMPLOYEE'>        /**
+</span>         * The create employee event type.
+         */
+        CREATE_EMPLOYEE:            &quot;CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-CREATE_EMPLOYEE_SUCCESS'>        /**
+</span>         * The create employee success event type.
+         */
+        CREATE_EMPLOYEE_SUCCESS:    &quot;CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_SUCCESS&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-CREATE_EMPLOYEE_FAILURE'>        /**
+</span>         * The create employee failure event type.
+         */
+        CREATE_EMPLOYEE_FAILURE:    &quot;CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_FAILURE&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-UPDATE_EMPLOYEE'>        /**
+</span>         * The update employee event type.
+         */
+        UPDATE_EMPLOYEE:            &quot;CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-UPDATE_EMPLOYEE_SUCCESS'>        /**
+</span>         * The update employee success event type.
+         */
+        UPDATE_EMPLOYEE_SUCCESS:    &quot;CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_SUCCESS&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-UPDATE_EMPLOYEE_FAILURE'>        /**
+</span>         * The update employee failure event type.
+         */
+        UPDATE_EMPLOYEE_FAILURE:    &quot;CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_FAILURE&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-DELETE_EMPLOYEE'>        /**
+</span>         * The delete employee event type.
+         */
+        DELETE_EMPLOYEE:            &quot;CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-DELETE_EMPLOYEE_SUCCESS'>        /**
+</span>         * The delete employee success event type.
+         */
+        DELETE_EMPLOYEE_SUCCESS:    &quot;CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_SUCCESS&quot;,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-DELETE_EMPLOYEE_FAILURE'>        /**
+</span>         * The delete employee failure event type.
+         */
+        DELETE_EMPLOYEE_FAILURE:    &quot;CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_FAILURE&quot;
+    },
+
+<span id='CafeTownsend-event-EmployeeEvent-property-readOnly'>    /**
+</span>     * @property {Number} [readOnly=false]
+     * The id of an employee.
+     */
+    id: null,
+
+<span id='CafeTownsend-event-EmployeeEvent-property-readOnly'>    /**
+</span>     * @property {CafeTownsend.model.EmployeeModel} [readOnly=false]
+     * An employee to perform CRUD actions on.
+     */
+    employee: null,
+
+<span id='CafeTownsend-event-EmployeeEvent-method-constructor'>    /**
+</span>     * Constructor. Allows the username and password for authentication to be set on the event.
+     *
+     * @param {String} type The event type.
+     * @param {Number} id The id of the employee the CRUD operation is acting on.
+     * @param {CafeTownsend.model.EmployeeModel} employee The employee the CRUD operation is acting on.
+     */
+    constructor: function(type, id, employee) {
+        this.callParent(arguments);
+
+        this.id = id;
+        this.employee = employee;
+    }
+})</pre>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Sencha Extensions Contributors](mailto:admin@webappsolution.com)
+
+ WASI Sencha Extensions is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ WASI Sencha Extensions is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with WASI Sencha Extensions.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='SenchaExtensions-mvc-store-AbstractStore'>/**
+</span> * The abstract store classes provides additional base functionality to update records in the store and
+ * force auto syncs.
+ * 
+ * This file is part of WASI Sencha Extensions.
+ */
+Ext.define(&quot;SenchaExtensions.mvc.store.AbstractStore&quot;, {
+    extend: &quot;Ext.data.Store&quot;,
+
+    statics: {
+
+<span id='SenchaExtensions-mvc-store-AbstractStore-property-logger'>        /**
+</span>         * The logger for the object.
+         */
+        logger: SenchaExtensions.logger.Logger.getLogger(&quot;SenchaExtensions.mvc.store.AbstractStore&quot;)
+    },
+
+<span id='SenchaExtensions-mvc-store-AbstractStore-property-isAutoUpdate'>    isAutoUpdate: false,
+</span><span id='SenchaExtensions-mvc-store-AbstractStore-property-_selectedRecord'>    _selectedRecord: null,
+</span>
+<span id='SenchaExtensions-mvc-store-AbstractStore-event-selectedRecord'>    /**
+</span>     * @event selectedRecord
+     * Fired when a Model instance has been set as the selected record of Store. You should listen
+     * for this event if you have to update a representation of the selected record in this store in your UI.
+     * @param {Ext.data.Store} this The store.
+     * @param {Ext.data.Model} record The Model instance that is set as the selected record.
+     */
+
+<span id='SenchaExtensions-mvc-store-AbstractStore-method-setData'>    /**
+</span>     * TODO
+     *
+     * @param data
+     */
+    setData: function(data) {
+//        SenchaExtensions.mvc.store.AbstractStore.logger.debug(&quot;setData&quot;);
+
+        if (Ext.getVersion(&quot;extjs&quot;)) {
+            SenchaExtensions.mvc.store.AbstractStore.logger.info(&quot;setData: using 'store.removeAll() and store.add(data)' because ExtJS 4.1 doesn't support store.setData().&quot;);
+            this.removeAll();
+            if ( data )
+            {
+                this.add(data);
+            } else {
+                this.removeAll();
+            }
+//            this.data = data;
+            // this is if you're using Touch
+            // TODO: BMR: 02/26/13: Might need to check for touch vr 2.0+
+//        } else if(Ext.getVersion('touch')) {
+        } else {
+            SenchaExtensions.mvc.store.AbstractStore.logger.info(&quot;setData&quot;);
+            this.callParent(arguments);
+        }
+    },
+
+<span id='SenchaExtensions-mvc-store-AbstractStore-method-setSelectedRecord'>    /**
+</span>     * TODO
+     *
+     * @param data
+     */
+    setSelectedRecord: function(record) {
+        SenchaExtensions.mvc.store.AbstractStore.logger.debug(&quot;setSelectedRecord&quot;);
+
+        this._selectedRecord = record;
+        this.fireEvent(&quot;selectedRecord&quot;, this, record);
+    },
+
+<span id='SenchaExtensions-mvc-store-AbstractStore-method-getSelectedRecord'>    /**
+</span>     * TODO
+     *
+     * @param data
+     */
+    getSelectedRecord: function() {
+        SenchaExtensions.mvc.store.AbstractStore.logger.debug(&quot;getSelectedRecord&quot;);
+
+        return this._selectedRecord;
+    },
+
+<span id='SenchaExtensions-mvc-store-AbstractStore-method-update'>    /**
+</span>     * Updates Model instance to the Store. This method accepts either:
+     *
+     * - An array of Model instances or Model configuration objects.
+     * - Any number of Model instance or Model configuration object arguments.
+     *
+     * The new Model instances will be added at the end of the existing collection.
+     *
+     * Sample usage:
+     *
+     *     myStore.add({some: 'data2'}, {some: 'other data2'});
+     *
+     * @param {Ext.data.Model[]/Ext.data.Model...} model An array of Model instances
+     * or Model configuration objects, or variable number of Model instance or config arguments.
+     * @param {String} The name of the ID property for the model.
+     * @return {Ext.data.Model[]} The model instances that were updated.
+     */
+    update: function(newModel, idProperty) {
+
+        if(idProperty == null) {
+            idProperty = &quot;id&quot;;
+        }
+
+        if(newModel.id == null) {
+            throw new Error(
+                &quot;The model being updated must have an 'id' property matching the provided parameter: '&quot; +
+                idProperty +
+                &quot;'.&quot;);
+        }
+
+        var id = newModel[idProperty];
+        var record = this.findRecord(idProperty, id);
+
+        //the copyFrom method requires the persistanceProperty be set, default is data, and that the data property be set
+        // which needs to be the actual model. This is a private method so mmv.
+        if (Ext.getVersion(&quot;extjs&quot;)) {
+            newModel.id = record.id;
+            newModel.data = newModel;
+            newModel.persistenceProperty = newModel['persistenceProperty'] ? newModel['persistenceProperty'] : 'data';
+            record.copyFrom(newModel);
+        } else {
+            record.setData(newModel);
+        }
+
+//
+
+        // TODO: we may not always want to do this
+        // seems like both the dirty flag and sync need to be manually called for the update to really take place
+//        if(this.isAutoUpdate &amp;&amp; (Ext.getVersion(&quot;extjs&quot;) == false) ) {
+//            SenchaExtensions.mvc.store.AbstractStore.logger.debug(&quot;update: BMR ============&quot;);
+//            record.dirty = true;
+//            this.sync();
+//        }
+
+        SenchaExtensions.mvc.store.AbstractStore.logger.debug(&quot;update: updating item with id = %s&quot;, id);
+        return record;
+    }
+
+});</pre>
+</body>
+</html>

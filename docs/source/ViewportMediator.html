@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-mediator-extjs-ViewportMediator'>/**
+</span> * The viewport mediator essentially fulfills the passive view pattern for the application's's Viewport.
+ *
+ * It is expected that different form factors may require a new mediator implementation as the events could be
+ * different; eg, a login button on a desktop app could be click whereas mobile could be tap.
+ *
+ * TODO: BMR: 02/22/13: Don't add all the views to the stage at once. Do it on demand.
+ */
+Ext.define(&quot;CafeTownsend.mediator.extjs.ViewportMediator&quot;, {
+    extend: &quot;CafeTownsend.mediator.AbstractMediator&quot;,
+
+    requires: [
+        &quot;CafeTownsend.event.AuthenticationEvent&quot;,
+        &quot;CafeTownsend.event.NavigationEvent&quot;
+    ],
+
+<span id='CafeTownsend-mediator-extjs-ViewportMediator-property-inject'>    inject: [
+</span>        &quot;logger&quot;
+    ],
+
+    ////////////////////////////////////////////////
+    // FUNCTIONAL METHODS
+    ////////////////////////////////////////////////
+
+<span id='CafeTownsend-mediator-extjs-ViewportMediator-method-setupGlobalEventListeners'>    /**
+</span>     * Sets up global event bus handlers. Called by the parent superclass during the initialization phase.
+     */
+    setupGlobalEventListeners: function() {
+        this.callParent();
+        this.logger.debug(&quot;setupGlobalEventListeners&quot;);
+
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.NavigationEvent.NAVIGATE, this.onNavigate, this);
+    },
+
+<span id='CafeTownsend-mediator-extjs-ViewportMediator-method-navigate'>    /**
+</span>     * Maps the current application action like login, logout, show a view, etc and navigates to a
+     * corresponding view.
+     *
+     * @param action    The current application-level action.
+     */
+    navigate: function(action) {
+        this.logger.debug(&quot;navigate: action = &quot;, action);
+
+        var view;
+        var direction;
+
+        switch(action) {
+            case CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS:
+                view = this.getViewByXType(&quot;extjsEmployeeListView&quot;);
+                direction = this.getSlideLeftTransition();
+                break;
+
+            case CafeTownsend.event.AuthenticationEvent.LOGOUT_SUCCESS:
+                view = this.getViewByXType(&quot;extjsLoginView&quot;);
+                direction = this.getSlideRightTransition();
+                break;
+
+            case CafeTownsend.event.NavigationEvent.ACTION_SHOW_EMPLOYEE_DETAIL:
+                view = this.getViewByXType(&quot;extjsEmployeeDetailView&quot;);
+                direction = this.getSlideLeftTransition();
+                break;
+
+            case CafeTownsend.event.NavigationEvent.ACTION_BACK_SHOW_EMPLOYEE_LIST:
+                view = this.getViewByXType(&quot;extjsEmployeeListView&quot;);
+                direction = this.getSlideRightTransition();
+                break;
+        }
+
+        // only navigate to the screen if the view exists
+        if(view != null) {
+//            this.slidleft(this.getViewByXType(&quot;extjsLoginView&quot;));
+
+            // TODO: BMR: 03/14/13: Need to get the correct view on demand and not hardcode it.
+            this.logger.debug(&quot;navigate = &quot; + view.getItemId());
+            this.getView().setView(view.getItemId());
+
+            //this.getView().items.getAt(1).show();// .getLayout().setActiveItem(view);
+//            this.getView().animateActiveItem(view, direction);
+//            Ext.Viewport.animateActiveItem(view, direction);
+        } else {
+            this.logger.warn(&quot;ViewportMediator.navigate: couldn't map navigation to action = &quot;, action);
+        }
+
+    },
+
+    ////////////////////////////////////////////////
+    // EVENT BUS HANDLERS
+    ////////////////////////////////////////////////
+
+<span id='CafeTownsend-mediator-extjs-ViewportMediator-method-onNavigate'>    /**
+</span>     * Handles the navigation applicaiton event and passes on the action to a functional, testable method.
+     */
+    onNavigate: function(event) {
+        this.logger.debug(&quot;onNavigate&quot;);
+
+        this.navigate(event.action)
+    },
+
+<span id='CafeTownsend-mediator-extjs-ViewportMediator-method-slidleft'>    slidleft: function (view) {
+</span>        var results = this.getView().getState();
+        view.animate({
+            to: {
+                x: -results.width,
+                y: 0
+            },
+            duration: 1000,
+            listeners: {
+                afteranimate: function() {
+                    this.getView().getLayout().setActiveItem(this.getViewByXType(&quot;extjsEmployeeListView&quot;));
+                    this.logger.debug('after')
+                }
+            }
+        })
+    }
+
+});
+
+</pre>
+</body>
+</html>

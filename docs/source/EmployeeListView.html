@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-view-extjs-EmployeeListView'>/**
+</span> * The list of employees view for the application.
+ *
+ * &lt;p&gt;
+ * All views are purely layout and don't contain event handling,
+ * application or business logic; this is all done in the view's corresponding mediator.
+ * &lt;/p&gt;
+ *
+ *  TODO: BMR: 02/22/13: Add logout button. Add search input.
+ */
+Ext.define(&quot;CafeTownsend.view.extjs.EmployeeListView&quot;, {
+    extend: &quot;Ext.Panel&quot;,
+    alias: &quot;widget.extjsEmployeeListView&quot;,
+<span id='CafeTownsend-view-extjs-EmployeeListView-property-controller'>    controller: &quot;CafeTownsend.mediator.extjs.EmployeeListMediator&quot;,
+</span><span id='CafeTownsend-view-extjs-EmployeeListView-property-header'>    header: false,
+</span>
+    requires: [
+        'Ext.data.*',
+        'Ext.util.*',
+        'Ext.view.View',
+        'CafeTownsend.view.extjs.component.LiveSearchGridPanel'
+//        'Ext.ux.DataView.DragSelector',
+//        'Ext.ux.DataView.LabelEditor'
+    ],
+
+<span id='CafeTownsend-view-extjs-EmployeeListView-property-title'>    title: &quot;Employees&quot;,
+</span>
+<span id='CafeTownsend-view-extjs-EmployeeListView-property-layout'>    layout: {
+</span>        type: &quot;fit&quot;
+//        pack: &quot;center&quot;,
+//        align: &quot;center&quot;
+    },
+
+<span id='CafeTownsend-view-extjs-EmployeeListView-property-items'>    items: [
+</span>        {
+            xtype: &quot;toolbar&quot;,
+            width: 400,
+//            layout: {
+//                type: 'hbox',
+//                pack: 'center'
+//            },
+
+            items: [
+                {
+                    text: &quot;Log Off&quot;,
+                    itemId: &quot;logoutButton&quot;
+                },
+                { xtype: 'tbfill'},
+                'Employees',
+                { xtype: 'tbfill'},
+                {
+                    text: &quot;New&quot;,
+                    itemId: &quot;newEmployeeButton&quot;
+                }
+            ]
+        },
+        {
+            xtype: &quot;livesearchgridpanel&quot;,
+            store: null,
+            itemId: &quot;list&quot;,
+            forceFit: true,
+            autoScroll: true,
+            height: 300,
+            title: 'live search',
+            viewConfig: {
+                stripeRows: true
+            },
+            columns: [
+                {text: 'First Name',      dataIndex:  'firstName'},
+                {text: 'Last Name',       dataIndex:  'lastName'}
+            ]
+        }
+    ]
+
+//    frame: true,
+//    bodyPadding: &quot;5px 5px 0&quot;,
+//    fieldDefaults: {
+//        labelWidth: 125,
+//        msgTarget: &quot;side&quot;,
+//        autoFitErrors: false
+//    }
+//    defaults: {
+//        width: 300,
+//        inputType: &quot;password&quot;
+//    },
+//    defaultType: &quot;textfield&quot;,
+
+//    items: [
+//        {
+//            xtype: &quot;panel&quot;,
+//            name: &quot;usernameTextField&quot;,
+//            id: &quot;usernameTextField&quot;,
+//            inputType: &quot;text&quot;
+//        },
+//        {
+//            xtype: &quot;grid&quot;,
+//            title: &quot;Employees&quot;,
+//            itemId: &quot;list&quot;,
+//            fullscreen: true,
+//            itemTpl: &quot;&lt;div class='contact'&gt;{firstName} &lt;strong&gt;{lastName}&lt;/strong&gt;&lt;/div&gt;&quot;,
+//            loadingText: &quot;Loading Employees...&quot;,
+//            emptyText: &quot;No Employees found.&quot;,
+//            grouped: true,
+//            onItemDisclosure: true,
+//
+//            columns: [
+//                { text: 'Name',  dataIndex: 'name' }
+//            ]
+
+//            items: [
+//                {
+//                    xtype: &quot;titlebar&quot; ,
+//                    itemId:&quot;titlebar&quot;,
+//                    id:&quot;titlebar&quot;,
+//                    docked: 'top',
+//
+//                    items: [
+//                        {
+//                            xtype: &quot;searchfield&quot; ,
+//                            itemId:&quot;searchInput&quot;,
+//                            id:&quot;searchInput&quot;
+//                        }
+//                    ]
+//                }
+//            ]
+//        }
+//    ]
+
+//    requires: [
+//        &quot;Ext.TitleBar&quot;,
+//        &quot;Ext.dataview.List&quot;,
+//        &quot;Ext.field.Search&quot;
+//    ],
+//
+//    config: {
+//
+//        layout: {
+//            type: &quot;fit&quot;
+//        },
+//
+//        items: [
+//            {
+//                xtype: &quot;titlebar&quot;,
+//                title: &quot;Employees&quot;,
+//                docked: &quot;top&quot;,
+//                items: [
+//                    {
+//                        xtype: &quot;button&quot;,
+//                        itemId: &quot;logoutButton&quot;,
+//                        text: &quot;Log Off&quot;,
+//                        align: &quot;left&quot;
+//                    },
+//                    {
+//                        xtype: &quot;button&quot;,
+//                        itemId: &quot;newEmployeeButton&quot;,
+//                        text: &quot;New&quot;,
+//                        align: &quot;right&quot;,
+//                        ui: &quot;action&quot;
+//                    }
+//                ]
+//            },
+//            {
+//                xtype: &quot;list&quot;,
+//                itemId: &quot;list&quot;,
+//                fullscreen: true,
+//                itemTpl: &quot;&lt;div class='contact'&gt;{firstName} &lt;strong&gt;{lastName}&lt;/strong&gt;&lt;/div&gt;&quot;,
+//                loadingText: &quot;Loading Employees...&quot;,
+//                emptyText: &quot;No Employees found.&quot;,
+//                grouped: true,
+//                onItemDisclosure: true,
+//
+//                items: [
+//                    {
+//                        xtype: &quot;titlebar&quot; ,
+//                        itemId:&quot;titlebar&quot;,
+//                        id:&quot;titlebar&quot;,
+//                        docked: 'top',
+//
+//                        items: [
+//                            {
+//                                xtype: &quot;searchfield&quot; ,
+//                                itemId:&quot;searchInput&quot;,
+//                                id:&quot;searchInput&quot;
+//                            }
+//                        ]
+//                    }
+//                ]
+//            }
+//        ]
+//    }
+});
+</pre>
+</body>
+</html>

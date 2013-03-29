@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*
+ Copyright (c) 2013 [Web App Solution, Inc.](mailto:admin@webappsolution.com)
+
+ CafeTownsend Sencha Touch DeftJS PoC is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ CafeTownsend Sencha Touch DeftJS PoC is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with CafeTownsend Sencha Touch DeftJS PoC.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator'>/**
+</span> * The employee list mediator essentially fulfills the passive view pattern for the employee list view.
+ */
+Ext.define(&quot;CafeTownsend.mediator.touch.EmployeeDetailMediator&quot;, {
+    extend: &quot;CafeTownsend.mediator.AbstractMediator&quot;,
+
+    requires: [
+        &quot;CafeTownsend.event.EmployeeEvent&quot;,
+        &quot;CafeTownsend.event.NavigationEvent&quot;
+    ],
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-property-inject'>    inject: [
+</span>        &quot;employeeStore&quot;,
+        &quot;logger&quot;
+    ],
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-property-control'>    // set up view event to mediator mapping
+</span>    control: {
+        backButton: {
+            tap: &quot;onBackButtonTap&quot;
+        },
+
+        saveEmployeeButton: {
+            tap: &quot;onSaveEmployeeButtonTap&quot;
+        },
+
+        deleteButton: {
+            tap: &quot;onDeleteButtonTap&quot;
+        }
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-property-observe'>    // set up injected object event listening
+</span>    observe: {
+        employeeStore: {
+            selectedRecord: &quot;onSelectedRecordChange&quot;
+        }
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-setupGlobalEventListeners'>    /**
+</span>     * Sets up global event bus handlers. Called by the parent superclass during the initialization phase.
+     */
+    setupGlobalEventListeners: function() {
+        this.callParent();
+        this.logger.debug(&quot;setupGlobalEventListeners&quot;);
+
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_SUCCESS, this.onCreateEmployeeSuccess, this);
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_SUCCESS, this.onUpdateEmployeeSuccess, this);
+        this.eventBus.addGlobalEventListener(CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_SUCCESS, this.onDeleteEmployeeSuccess, this);
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-saveEmployee'>    /**
+</span>     * Functional method to save an employee. Determines if the employee is new and it needs to be
+     * created, or existing and needs to be updated and fires off the corresponding application-level event.
+     *
+     * @param employee    The employee is the data model for the item in the list currently selected.
+     */
+    saveEmployee: function(employee) {
+        this.logger.debug(&quot;saveEmployee&quot;);
+
+        var evt;
+        var msg;
+
+        if(employee != null) {
+
+            var id = employee.id;
+
+            if( (id != null) &amp;&amp; (id != &quot;&quot;) ) {
+                evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE);
+                msg = &quot;Updating Employee...&quot;;
+            } else {
+                evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE);
+                msg = &quot;Creating Employee...&quot;;
+            }
+
+            this.getView().setMasked({
+                xtype: &quot;loadmask&quot;,
+                message: msg
+            });
+
+            evt.employee = employee;
+            this.eventBus.dispatchGlobalEvent(evt);
+        }
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-deleteEmployee'>    /**
+</span>     * Functional method to delete an employee. Fires off the corresponding application-level event.
+     *
+     * @param employee    The employee is the data model for the item in the list currently selected.
+     */
+    deleteEmployee: function(employee) {
+        this.logger.debug(&quot;deleteEmployee&quot;);
+
+        if(employee != null) {
+
+            this.getView().setMasked({
+                xtype: &quot;loadmask&quot;,
+                message: &quot;Deleting Employee...&quot;
+            });
+
+            var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE);
+            evt.employee = employee;
+
+            this.eventBus.dispatchGlobalEvent(evt);
+        }
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-backToEmployeeList'>    /**
+</span>     * Simple navigation method used to navigate back to the employee list view.
+     */
+    backToEmployeeList: function() {
+        this.logger.debug(&quot;backToEmployeeList&quot;);
+
+        this.navigate(CafeTownsend.event.NavigationEvent.ACTION_BACK_SHOW_EMPLOYEE_LIST);
+    },
+
+    ////////////////////////////////////////////////
+    // EVENT BUS HANDLERS
+    ////////////////////////////////////////////////
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-onCreateEmployeeSuccess'>    /**
+</span>     * Handles the create employee success application-level event. Navigates back to the employee list view.
+     */
+    onCreateEmployeeSuccess: function() {
+        this.logger.debug(&quot;onCreateEmployeeSuccess&quot;);
+
+        this.getView().setMasked(false);
+        this.backToEmployeeList();
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-onUpdateEmployeeSuccess'>    /**
+</span>     * Handles the update employee success application-level event. Navigates back to the employee list view.
+     */
+    onUpdateEmployeeSuccess: function() {
+        this.logger.debug(&quot;onUpdateEmployeeFailure&quot;);
+
+        this.getView().setMasked(false);
+        this.backToEmployeeList();
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-onDeleteEmployeeSuccess'>    /**
+</span>     * Handles the delete employee success application-level event. Navigates back to the employee list view.
+     */
+    onDeleteEmployeeSuccess: function() {
+        this.logger.debug(&quot;onDeleteEmployeeSuccess&quot;);
+
+        this.getView().setMasked(false);
+        this.getView().reset();
+        this.employeeStore.setSelectedRecord(null);
+        this.getView().setRecord(null);
+        this.backToEmployeeList();
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-onSelectedRecordChange'>    /**
+</span>     * Handles the change of the selected record in the employee store. Loads the appropriate record in the view.
+     */
+    onSelectedRecordChange: function() {
+        this.logger.debug(&quot;onSelectedRecordChange&quot;);
+
+        var record = this.employeeStore.getSelectedRecord();
+        if (record)
+            this.getView().setRecord(this.employeeStore.getSelectedRecord());
+        else
+            this.getView().reset();
+    },
+
+    ////////////////////////////////////////////////
+    // VIEW EVENT HANDLERS
+    ////////////////////////////////////////////////
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-onBackButtonTap'>    /**
+</span>     * Handles the back button tap event. Navigates back to the employee list view.
+     */
+    onBackButtonTap: function() {
+        this.logger.debug(&quot;onBackButtonTap&quot;);
+
+        this.backToEmployeeList();
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-onSaveEmployeeButtonTap'>    /**
+</span>     * Handles the save button tap event. Grabs the view's current employee data and passes the record
+     * to the functional save method.
+     */
+    onSaveEmployeeButtonTap: function() {
+        this.logger.debug(&quot;onSaveEmployeeButtonTap&quot;);
+
+        var employee = this.getView().getRecord();
+        var newEmployee = this.getView().getValues();
+
+        // if this is a new employee record, there's no id available
+        if(employee != null) {
+            newEmployee.id = employee.data.id;
+        }
+
+        this.saveEmployee(newEmployee);
+    },
+
+<span id='CafeTownsend-mediator-touch-EmployeeDetailMediator-method-onDeleteButtonTap'>    /**
+</span>     * Handles the delete button tap event. Grabs the view's current employee data and passes the record
+     * to the functional delete method.
+     */
+    onDeleteButtonTap: function() {
+        this.logger.debug(&quot;onDeleteButtonTap&quot;);
+
+        var employee = this.getView().getRecord();
+
+        this.deleteEmployee(employee.data);
+    }
+
+});
+
+</pre>
+</body>
+</html>
