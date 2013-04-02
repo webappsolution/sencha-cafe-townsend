@@ -50,7 +50,7 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeDetailMediator", {
     // set up injected object event listening
     observe: {
         employeeStore: {
-            selectedRecord: "onSelectedRecordChange"
+            selectedRecordChange: "onSelectedRecordChange"
         }
     },
 
@@ -83,17 +83,14 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeDetailMediator", {
             var id = employee.id;
 
             if( (id != null) && (id != "") ) {
-                evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE);
+                evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE);
                 msg = nineam.locale.LocaleManager.getProperty("employeeDetail.updatingEmployee");
             } else {
-                evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE);
+                evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE);
                 msg = nineam.locale.LocaleManager.getProperty("employeeDetail.creatingEmployee");
             }
 
-            this.getView().setLoading({
-                xtype: "loadmask",
-                message: msg
-            });
+            this.getView().setLoading(msg);
 
             evt.employee = employee;
             this.eventBus.dispatchGlobalEvent(evt);
@@ -110,12 +107,9 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeDetailMediator", {
 
         if(employee != null) {
 
-            this.getView().setLoading({
-                xtype: "loadmask",
-                message: nineam.locale.LocaleManager.getProperty("employeeDetail.deletingEmployee")
-            });
+            this.getView().setLoading(nineam.locale.LocaleManager.getProperty("employeeDetail.deletingEmployee"));
 
-            var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE);
+            var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE);
             evt.employee = employee;
 
             this.eventBus.dispatchGlobalEvent(evt);
@@ -129,6 +123,21 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeDetailMediator", {
         this.logger.debug("backToEmployeeList");
 
         this.navigate(CafeTownsend.event.NavigationEvent.ACTION_BACK_SHOW_EMPLOYEE_LIST);
+    },
+
+    /**
+     * Rests the view to it's default state -- no record set on the view's fields.
+     */
+    reset: function() {
+        this.logger.debug("reset");
+
+        this.getView().setLoading(false);
+        // TODO: there doesn't appear to be an easy way to reset the currently loaded record in a form so we're hacking this. Might need to be updated for future vrs of ExtJS
+        // resets the visual side so we're tapping into some u
+        this.getView().getForm()._record = null;
+//        this.getView().getForm().setRecord(null); // doesn't work as expected
+//        this.getView().getForm().loadRecord(null); // doesn't work as expected
+        this.getView().getForm().reset();
     },
 
     ////////////////////////////////////////////////
@@ -161,23 +170,28 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeDetailMediator", {
     onDeleteEmployeeSuccess: function() {
         this.logger.debug("onDeleteEmployeeSuccess");
 
-        this.getView().setLoading(false);
-        this.getView().getForm().reset();
-        this.employeeStore.setSelectedRecord(null);
+        this.reset();
         this.backToEmployeeList();
     },
 
     /**
-     * Handles the change of the selected record in the employee store. Loads the appropriate record in the view.
+     * Handles the change of the selected record in the employee store. Loads the appropriate record in the view or
+     * resets it if the record is null.
+     *
+     * @param {CafeTownsend.store.EmployeeStore} store The store that ahs the selected record.
+     * @param {CafeTownsend.model.EmployeeModel} record The selected record of the store.
      */
-    onSelectedRecordChange: function() {
-        this.logger.debug("onSelectedRecordChange");
+    onSelectedRecordChange: function(store, record) {
+        var logMsg = (record != null)
+            ? ": id = " + record.get("id") + ", employee = " + record.get("firstName")
+            : "new employee";
+        this.logger.debug("onSelectedRecordChange = " + logMsg);
 
-        var record = this.employeeStore.getSelectedRecord();
-        if (record)
+        if (record) {
             this.getView().loadRecord(record);
-        else
-            this.getView().getForm().reset();
+        } else {
+            this.reset();
+        }
     },
 
     ////////////////////////////////////////////////

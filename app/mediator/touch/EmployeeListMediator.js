@@ -74,7 +74,7 @@ Ext.define("CafeTownsend.mediator.touch.EmployeeListMediator", {
             message: nineam.locale.LocaleManager.getProperty("employeeList.loading")
         });
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -88,8 +88,8 @@ Ext.define("CafeTownsend.mediator.touch.EmployeeListMediator", {
     showEmployeeDetail: function(record) {
         var logMsg = (record != null)
             ? ": id = " + record.get("id") + ", employee = " + record.get("firstName")
-            : "";
-        this.logger.debug("showEmployeeDetail = ", logMsg);
+            : "new employee";
+        this.logger.debug("showEmployeeDetail = " + logMsg);
 
         this.navigate(CafeTownsend.event.NavigationEvent.ACTION_SHOW_EMPLOYEE_DETAIL);
         this.employeeStore.setSelectedRecord(record);
@@ -107,7 +107,6 @@ Ext.define("CafeTownsend.mediator.touch.EmployeeListMediator", {
         this.logger.debug("onLoginSuccess");
 
         this.navigate(CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS);
-
         this.getEmployeeListData();
     },
 
@@ -140,7 +139,7 @@ Ext.define("CafeTownsend.mediator.touch.EmployeeListMediator", {
     onLogoutButtonTap: function() {
         this.logger.debug("onLogoutButtonTap");
 
-        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGOUT);
+        var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGOUT);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 

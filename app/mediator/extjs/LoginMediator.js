@@ -83,17 +83,9 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
         var view = this.getView();
 
         this.reset();
+        view.setLoading(nineam.locale.LocaleManager.getProperty("login.signingIn"));
 
-        // TODO: BMR: 02/22/13: this doesn't seem to mask like it does in Touch. Need to look into this a bit more.
-//        view.mask({
-//            xtype: "loadmask",
-//            message: "Signing In..."
-//        });
-
-//        var myMask = new Ext.LoadMask(view, {msg:"Signing In..."});
-//        myMask.show();
-
-        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGIN, username, password);
+        var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGIN, username, password);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -139,8 +131,7 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
     onLoginSuccess: function() {
         this.logger.debug("onLoginSuccess");
 
-        var view = this.getView();
-        view.unmask();
+        this.getView().setLoading(false);
     },
 
     /**
@@ -150,9 +141,7 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
     onLogoutSuccess: function() {
         this.logger.debug("onLoginSuccess");
 
-        var view = this.getView();
-        view.unmask();
-
+        this.getView().setLoading(false);
         this.navigate(CafeTownsend.event.AuthenticationEvent.LOGOUT_SUCCESS);
     },
 
@@ -163,9 +152,7 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
     onLoginFailure: function() {
         this.logger.debug("onLoginFailure");
 
-        var view = this.getView();
-        view.unmask();
-
+        this.getView().setLoading(false);
         this.showSignInFailedMessage(nineam.locale.LocaleManager.getProperty("login.loginFailed"));
     },
 

@@ -133,7 +133,7 @@ Ext.define("CafeTownsend.controller.EmployeeController", {
 
         this.employeeStore.setData(response.employeeList);
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_SUCCESS);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_SUCCESS);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -146,7 +146,7 @@ Ext.define("CafeTownsend.controller.EmployeeController", {
     getEmployeeListFailure: function(response) {
         this.logger.warn("getEmployeeListFailure");
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_FAILURE);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST_FAILURE);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -161,7 +161,7 @@ Ext.define("CafeTownsend.controller.EmployeeController", {
 
         this.employeeStore.add(response);
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_SUCCESS);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_SUCCESS);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -174,7 +174,7 @@ Ext.define("CafeTownsend.controller.EmployeeController", {
     createEmployeeFailure: function(response) {
         this.logger.warn("createEmployeeFailure");
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_FAILURE);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.CREATE_EMPLOYEE_FAILURE);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -189,7 +189,7 @@ Ext.define("CafeTownsend.controller.EmployeeController", {
 
         this.employeeStore.update(response);
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_SUCCESS);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_SUCCESS);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -202,7 +202,7 @@ Ext.define("CafeTownsend.controller.EmployeeController", {
     updateEmployeeFailure: function(response) {
         this.logger.warn("updateEmployeeFailure");
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_FAILURE);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.UPDATE_EMPLOYEE_FAILURE);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -215,10 +215,11 @@ Ext.define("CafeTownsend.controller.EmployeeController", {
     deleteEmployeeSuccess: function(response) {
         this.logger.info("deleteEmployeeSuccess");
 
+        this.employeeStore.setSelectedRecord(null);
         var employee = this.employeeStore.findRecord("id", response.data.id);
         this.employeeStore.remove(employee);
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_SUCCESS);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_SUCCESS);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -231,7 +232,7 @@ Ext.define("CafeTownsend.controller.EmployeeController", {
     deleteEmployeeFailure: function(response) {
         this.logger.warn("deleteEmployeeFailure");
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_FAILURE);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.DELETE_EMPLOYEE_FAILURE);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 

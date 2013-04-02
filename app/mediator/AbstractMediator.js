@@ -39,7 +39,8 @@ Ext.define("CafeTownsend.mediator.AbstractMediator", {
      */
     navigate: function(action) {
         this.logger.debug("navigate");
-        var evt = new CafeTownsend.event.NavigationEvent(CafeTownsend.event.NavigationEvent.NAVIGATE, action);
+
+        var evt = Ext.create("CafeTownsend.event.NavigationEvent", CafeTownsend.event.NavigationEvent.NAVIGATE, action);
         this.eventBus.dispatchGlobalEvent(evt);
     }
 

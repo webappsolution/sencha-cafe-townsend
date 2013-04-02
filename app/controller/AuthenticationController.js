@@ -34,23 +34,6 @@ Ext.define("CafeTownsend.controller.AuthenticationController", {
         "logger"
     ],
 
-    // NOTE: creating config placeholder properties for the injected service doesn't seem to work for extjs
-    // however, just putting them in the inject property seems to do the trick but you need to access
-    // them without the getter
-//    config: {
-//        /**
-//         * @cfg {Object} authenticationService The injected authentication service from DeftJS.
-//         * @accessor
-//         */
-//        authenticationService: null
-//
-//        /**
-//         * @cfg {Object} employeeStore The injected employee store from DeftJS.
-//         * @accessor
-//         */
-//        employeeStore: null
-//    },
-
     /**
      * @event CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS
      * Fired when the login service is successful.
@@ -134,7 +117,7 @@ Ext.define("CafeTownsend.controller.AuthenticationController", {
         // The server will send a token that can be used throughout the app to confirm that the user is authenticated.
         this.setSessionToken(response.sessionToken);
 
-        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS);
+        var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -149,7 +132,7 @@ Ext.define("CafeTownsend.controller.AuthenticationController", {
 
         this.resetSessionData();
 
-        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGIN_FAILURE);
+        var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGIN_FAILURE);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -164,7 +147,7 @@ Ext.define("CafeTownsend.controller.AuthenticationController", {
 
         this.resetSessionData();
 
-        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGOUT_SUCCESS);
+        var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGOUT_SUCCESS);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -179,7 +162,7 @@ Ext.define("CafeTownsend.controller.AuthenticationController", {
 
         this.resetSessionData();
 
-        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGOUT_FAILURE);
+        var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGOUT_FAILURE);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 

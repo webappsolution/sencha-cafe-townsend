@@ -67,7 +67,7 @@ Ext.define("CafeTownsend.controller.BootstrapController", {
         var lm = nineam.locale.LocaleManager;
         lm.addListener(nineam.locale.event.LocaleEvent.INITIALIZED, this.localeManagerInitializedEventHandler, this);
 
-        var locales = new nineam.locale.store.LocalesStore({
+        var locales = Ext.create("nineam.locale.store.LocalesStore", {
             data: [
                 {id: "en_us", label: "English", url: "locale/en_us.json"},
                 {id: "es_us", label: "Spanish", url: "locale/es_us.json"}

@@ -77,7 +77,7 @@ Ext.define("CafeTownsend.mediator.touch.LoginMediator", {
             message: nineam.locale.LocaleManager.getProperty("login.signingIn")
         });
 
-        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGIN, username, password);
+        var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGIN, username, password);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 

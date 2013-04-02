@@ -65,8 +65,8 @@ describe("CafeTownsend.store.EmployeeStore", function() {
             spyOn(store, "fireEvent");
             store.setSelectedRecord(model);
 
-            expect(store.fireEvent).toHaveBeenCalledWith("selectedRecord", store, model);
-            expect(store.fireEvent).toHaveBeenCalledWith("selectedRecord", store, store.getSelectedRecord());
+            expect(store.fireEvent).toHaveBeenCalledWith("selectedRecordChange", store, model);
+            expect(store.fireEvent).toHaveBeenCalledWith("selectedRecordChange", store, store.getSelectedRecord());
         });
 
     });

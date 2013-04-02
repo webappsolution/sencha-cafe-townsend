@@ -65,12 +65,9 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeListMediator", {
     getEmployeeListData: function() {
         this.logger.debug("getEmployeeListData");
 
-//        this.getView().mask({
-//            xtype: "loadmask",
-//            message: "Loadng Employees..."
-//        });
+        this.getView().setLoading(nineam.locale.LocaleManager.getProperty("employeeList.loading"));
 
-        var evt = new CafeTownsend.event.EmployeeEvent(CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST);
+        var evt = Ext.create("CafeTownsend.event.EmployeeEvent", CafeTownsend.event.EmployeeEvent.GET_EMPLOYEE_LIST);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -103,7 +100,6 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeListMediator", {
         this.logger.debug("onLoginSuccess");
 
         this.navigate(CafeTownsend.event.AuthenticationEvent.LOGIN_SUCCESS);
-
         this.getEmployeeListData();
     },
 
@@ -113,6 +109,7 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeListMediator", {
     onGetEmployeeListSuccess: function() {
         this.logger.debug("onGetEmployeeListSuccess");
 
+        this.getView().setLoading(false);
         this.getList().getStore().loadRecords(this.employeeStore.getRange());
     },
 
@@ -122,7 +119,7 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeListMediator", {
     onGetEmployeeListFailure: function() {
         this.logger.debug("onGetEmployeeListFailure");
 
-//        this.getView().mask(false);
+        this.getView().setLoading(false);
     },
 
     /**
@@ -153,7 +150,7 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeListMediator", {
     onLogoutButtonClick: function() {
         this.logger.debug("onLogoutButtonClick");
 
-        var evt = new CafeTownsend.event.AuthenticationEvent(CafeTownsend.event.AuthenticationEvent.LOGOUT);
+        var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGOUT);
         this.eventBus.dispatchGlobalEvent(evt);
     },
 
@@ -172,9 +169,7 @@ Ext.define("CafeTownsend.mediator.extjs.EmployeeListMediator", {
      *
      * @param {Ext.dataview.List} list  Reference to the visual list component.
      * @param {Object/Ext.data.Model} record Reference to the selected item in the list.
-     * @param {Object} target The item in the list that's selected.
      * @param {Number} index The index of the selected item.
-     * @param {Object/Event} evt the event that triggered the handler.
      * @param {Object} options ???
      */
     onListSelect: function(list, record, index, options) {
