@@ -25,13 +25,7 @@
  * <li>DeftJS IoC and dependencies</li>
  * <li>Adds the views to the main Viewport when the application launches</li>
  * </ul>
- *
- * TODO: BMR: 02/02/13: Add unit tests. Added Jasmine lib, but need to add tests.
- * TODO: BMR: 02/26/13: Build support.
- * TODO: BMR: 03/04/13: Refactor executeServiceCall() method to it"s own object; move out of base controller. Can then inject this like in Swiz.
- * TODO: BMR: 03/04/13: Add comments to all methods and properties. Generate documentation with JSDuck
  */
-
 Ext.onReady(function () {
     console.log("app.onReady");
 
