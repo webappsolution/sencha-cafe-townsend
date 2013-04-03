@@ -5,16 +5,15 @@
 This project is an HTML5/Javascript implementation of the infamous CafeTownsend application.
 CafeTownsend is a well known application created to demonstrate various MVC frameworks using Flex or ActionScript.
 There are known ports using Cairngorm, Mate, PureMVC, Spring ActionScript, RobotLegs and Swiz.
-This implementation uses Sencha Touch, DeftJS, and the WASI Sencha MVC Extensions:
+This implementation uses Sencha Touch, Sencha ExtJS, DeftJS, FlowMVC, and some others:
 
 *  [Sencha ExtJS](http://www.sencha.com/products/extjs) - Robust HTML5/JavaScript Framework for Desktop Applications
 *  [Sencha Touch](http://www.sencha.com/products/touch) - Robust HTML5/JavaScript Framework for Mobile Applications
 *  [DeftJS](https://github.com/deftjs/) - DeftJS enhances Sencha's ExtJS and Sencha Touch APIs with additional
 building blocks that enable large development teams to rapidly create enterprise-scale applications, leveraging best
 practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.
-*  [WASI Sencha MVC Extensions](http://TODO) - Additional foundational building blocks, infrastructure, and boilerplate
-code for building Sencha MVC applications. **NOTE**: Not currently in it's own project and part of this PoC at the
-moment.
+*  [FlowMVC Extensions](http://TODO) - Additional foundational building blocks, infrastructure, and boilerplate
+code for building Sencha MVC applications.
 *  [LocaleManager](https://github.com/psmithiv/nineam-localization-plugin) - Runtime-enabled localization
 *  [Jasmine](http://pivotal.github.com/jasmine/) - Jasmine is a behavior-driven development framework for testing
 JavaScript code
