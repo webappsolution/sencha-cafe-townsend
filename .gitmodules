@@ -1,3 +1,0 @@
-[submodule "lib/test-submodule"]
-	path = lib/test-submodule
-	url = git://github.com/WebAppSolutionInc/test-submodule.git
