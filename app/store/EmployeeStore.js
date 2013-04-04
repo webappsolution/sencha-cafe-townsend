@@ -18,25 +18,22 @@
 /**
  * Contains the list of employee domain objects.
  */
-//Ext.define("CafeTownsend.store.EmployeeStore", Sencha.storeCompatibility({
 Ext.define("CafeTownsend.store.EmployeeStore", {
-    extend: "SenchaExtensions.mvc.store.AbstractStore",
+    extend: "FlowMVC.mvc.store.AbstractStore",
 
-//    config: {
-        model: "CafeTownsend.model.EmployeeModel",
+    model: "CafeTownsend.model.EmployeeModel",
 
-        sorters: "lastName",
+    sorters: "lastName",
 
-        isAutoUpdate: true,
+    isAutoUpdate: true,
 
-        grouper: {
-            groupFn: function(record) {
-                try {
-                    return record.get("lastName")[0];
-                } catch(err) {
+    grouper: {
+        groupFn: function(record) {
+            try {
+                return record.get("lastName")[0];
+            } catch(err) {
 
-                }
             }
         }
-//    }
+    }
 });

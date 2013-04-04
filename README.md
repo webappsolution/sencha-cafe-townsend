@@ -205,7 +205,7 @@ and destroyed by controllers and used by mediators to marshall data for their re
         deft-08.8/          --> the current [DeftJS](https://github.com/deftjs/) library
         ext-4.1.1a/         --> the current [Sencha ExtJS](http://www.sencha.com/products/extjs) library
         jasmine-1.3.1/      --> the current [Jasmine](http://pivotal.github.com/jasmine/) unit testing library
-        wasi-sencha-ext/    --> wasi sencha mvc extensions
+        flow-mvc-0.1.0/    --> wasi sencha mvc extensions
 
     locale/                 --> json locales (aka property files or resource bundles)
     data/                   --> json data for mocking service calls

@@ -36,8 +36,8 @@ Ext.onReady(function () {
         "CafeTownsend.service.mock.EmployeeServiceMock",
         "CafeTownsend.store.EmployeeStore",
 
-        "SenchaExtensions.mvc.event.EventDispatcher",
-        "SenchaExtensions.logger.Logger"
+        "FlowMVC.mvc.event.EventDispatcher",
+        "FlowMVC.logger.Logger"
     ]);
 
     /**
@@ -54,12 +54,12 @@ Ext.onReady(function () {
         ////////////////////////////////////////////
         // LOGGER
         ////////////////////////////////////////////
-        logger:                 SenchaExtensions.logger.Logger.getInjectableLogger(),
+        logger:                 FlowMVC.logger.Logger.getInjectableLogger(),
 
         ////////////////////////////////////////////
         // EVENT DISPATCHER
         ////////////////////////////////////////////
-        eventBus:               "SenchaExtensions.mvc.event.EventDispatcher",
+        eventBus:               "FlowMVC.mvc.event.EventDispatcher",
 
         ////////////////////////////////////////////
         // IMPL

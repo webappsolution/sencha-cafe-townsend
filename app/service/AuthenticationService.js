@@ -19,7 +19,7 @@
  * The authentication service object. Contains concrete Ajax calls.
  */
 Ext.define("CafeTownsend.service.AuthenticationService", {
-    extend: "SenchaExtensions.mvc.service.AbstractService",
+    extend: "FlowMVC.mvc.service.AbstractService",
 
     inject: [
         "logger"

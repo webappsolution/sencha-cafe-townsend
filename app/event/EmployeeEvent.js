@@ -19,7 +19,7 @@
  * The employee event contains data and event types to perform CRUD operations on employees.
  */
 Ext.define("CafeTownsend.event.EmployeeEvent", {
-    extend: "SenchaExtensions.mvc.event.AbstractEvent",
+    extend: "FlowMVC.mvc.event.AbstractEvent",
     
     statics: {
 

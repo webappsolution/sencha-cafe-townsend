@@ -22,7 +22,7 @@
  * and show/hide.
  */
 Ext.define("CafeTownsend.mediator.AbstractMediator", {
-    extend: "SenchaExtensions.mvc.mediator.AbstractMediator",
+    extend: "FlowMVC.mvc.mediator.AbstractMediator",
 
     requires: [
         "CafeTownsend.event.NavigationEvent"

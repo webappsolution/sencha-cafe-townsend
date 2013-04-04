@@ -20,11 +20,11 @@
  * and failed authentication service calls.
  */
 Ext.define("CafeTownsend.controller.AuthenticationController", {
-    extend: "SenchaExtensions.mvc.controller.AbstractController",
+    extend: "FlowMVC.mvc.controller.AbstractController",
 
     requires: [
         "CafeTownsend.event.AuthenticationEvent",
-        "SenchaExtensions.mvc.service.rpc.Responder"
+        "FlowMVC.mvc.service.rpc.Responder"
     ],
 
     inject: [

@@ -20,11 +20,11 @@
  * and failed employee service calls.eError: "undefined" is not a function(evaluating "controller.getStores()")
  */
 Ext.define("CafeTownsend.controller.EmployeeController", {
-    extend: "SenchaExtensions.mvc.controller.AbstractController",
+    extend: "FlowMVC.mvc.controller.AbstractController",
 
     requires: [
         "CafeTownsend.event.EmployeeEvent",
-        "SenchaExtensions.mvc.service.rpc.Responder"
+        "FlowMVC.mvc.service.rpc.Responder"
     ],
 
     inject: [

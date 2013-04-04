@@ -3,7 +3,7 @@
  */
 Ext.Loader.setPath({
     "CafeTownsend":     "../../../app",
-    "SenchaExtensions": "../../../lib/wasi-sencha-ext/SenchaExtensions",
+    "FlowMVC": "../../../lib/flow-mvc-0.1.0/FlowMVC",
     "Deft":             "../../../lib/deft-0.8.8/Deft",
 
     enabled:            true,
@@ -39,7 +39,7 @@ Ext.syncRequire([
  * DeftJS core classes. These might only need to be required for dev.
  */
 Ext.syncRequire([
-    "SenchaExtensions.logger.Logger"
+    "FlowMVC.logger.Logger"
 ]);
 
 /*

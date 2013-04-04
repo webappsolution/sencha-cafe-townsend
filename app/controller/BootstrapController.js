@@ -20,7 +20,7 @@
  * and failed authentication service calls.
  */
 Ext.define("CafeTownsend.controller.BootstrapController", {
-    extend: "SenchaExtensions.mvc.controller.AbstractController",
+    extend: "FlowMVC.mvc.controller.AbstractController",
 
     requires: [
         "nineam.locale.store.LocalesStore",
