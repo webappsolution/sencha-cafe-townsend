@@ -1,6 +1,6 @@
 # CafeTownsend
 
-### Sencha Touch, DeftJS, & WASI Sencha Extensions
+### Sencha Touch, DeftJS, & WASI FlowMVC
 
 This project is an HTML5/Javascript implementation of the infamous CafeTownsend application.
 CafeTownsend is a well known application created to demonstrate various MVC frameworks using Flex or ActionScript.
@@ -185,8 +185,8 @@ This effort is still ongoing with some in-progress effort that will provide the 
 
 *  Lazy loading of views on demand - CafeTownsend
 *  Better DeftJS support so all dependencies are lazy loaded as opposed to at startup - CafeTownsend
-*  Unit Tests with Jasmine - Sencha Extensions & CafeTownsend (In Progress)
-*  Functional Tests with Siesta - Sencha Extensions & CafeTownsend
+*  Unit Tests with Jasmine - FlowMVC & CafeTownsend (In Progress)
+*  Functional Tests with Siesta - FlowMVC & CafeTownsend
 *  Build Support - CafeTownsend
 *  Generate documentation with JSDuck
 *  Inject logger and use something other than console.log() which bombs in browsers like IE6
