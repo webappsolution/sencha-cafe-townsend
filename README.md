@@ -177,40 +177,7 @@ controllers. For development purposes, they often have mock and real, concrete i
 The models and stores are the client-side domain models and collections of domain models. They are often created, updated,
 and destroyed by controllers and used by mediators to marshall data for their respective views.
 
-# Directory Layout
 
-    index-extjs-dev.html    --> contains linkages for ExtJS framework, styling, application classes
-    index-touch-dev.html    --> contains linkages for Touch framework, styling, application classes
-
-    app-extjs.js            --> the main application setup and creation for the desktop, ExtJS version
-    app-touch.js            --> the main application setup and creation for the mobile, Touch version
-
-    app/                    --> contains sencha mvc infrastructure
-
-        controller/         --> application, service controllers
-        event/              --> application-level events used with event bus
-        mediator/           --> view mediators that fulfil the passive view pattern
-            extjs/          --> mediators specific to ExtJS
-            touch/          --> mediators specific to Touch
-        model/              --> domain models
-        service/            --> concrete data service implementations
-            mock/           --> mock data services
-        store/              --> data stores containing lists of models
-        view/               --> ui views or screens for the application
-            extjs/          --> views specific to ExtJS
-            touch/          --> views specific to Touch
-
-
-    lib/                    --> contains all 3rd party libraries
-        deft-08.8/          --> the current [DeftJS](https://github.com/deftjs/) library
-        ext-4.1.1a/         --> the current [Sencha ExtJS](http://www.sencha.com/products/extjs) library
-        jasmine-1.3.1/      --> the current [Jasmine](http://pivotal.github.com/jasmine/) unit testing library
-        flow-mvc-0.1.0/    --> wasi sencha mvc extensions
-
-    locale/                 --> json locales (aka property files or resource bundles)
-    data/                   --> json data for mocking service calls
-    test/                   --> unit tests (NOTE: in progress)
-    docs/                   --> JSDuck generated documentation
 
 ## Pending Features
 
