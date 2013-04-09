@@ -100,12 +100,10 @@ Ext.application({
         "CafeTownsend.view.extjs.EmployeeDetailView"
     ],
 
-    // list all of the controllers and view mediators for the application
+    ////////////////////////////////////////////
+    // CONTROLLERS
+    ////////////////////////////////////////////
     controllers:[
-
-        ////////////////////////////////////////////
-        // CONTROLLERS
-        ////////////////////////////////////////////
         "BootstrapController",
         "AuthenticationController",
         "EmployeeController"

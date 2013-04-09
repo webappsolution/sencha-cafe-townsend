@@ -99,12 +99,10 @@ Ext.application({
         "CafeTownsend.view.touch.EmployeeDetailView"
     ],
 
-    // list all of the controllers and view mediators for the application
+    ////////////////////////////////////////////
+    // CONTROLLERS
+    ////////////////////////////////////////////
     controllers:[
-
-        ////////////////////////////////////////////
-        // CONTROLLERS
-        ////////////////////////////////////////////
         "BootstrapController",
         "AuthenticationController",
         "EmployeeController"

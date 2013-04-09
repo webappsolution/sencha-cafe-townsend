@@ -24,11 +24,11 @@ Ext.define("CafeTownsend.model.EmployeeModel", {
     idProperty: "id",
 
     fields: [
-        { name: "id",           type: "int" },
-        { name: "firstName",    type: "string" },
-        { name: "lastName",     type: "string" },
-        { name: "email",        type: "string" },
-        { name: "phoneNumber",  type: "string" },
+        { name: "id",           type: "int"     },
+        { name: "firstName",    type: "string"  },
+        { name: "lastName",     type: "string"  },
+        { name: "email",        type: "string"  },
+        { name: "phoneNumber",  type: "string"  },
         { name: "startDate",    type: "date",       dateFormat: "c" }
     ],
 
