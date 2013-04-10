@@ -60,8 +60,7 @@ Ext.define("CafeTownsend.controller.BootstrapController", {
     },
 
     /**
-     * Performs authentication by using the referenced service and sets up the service success and failure
-     * callback handlers.
+     * Initializes the Localization Manager loading in two languages for now.
      */
     initLocaleManager: function() {
         var lm = nineam.locale.LocaleManager;

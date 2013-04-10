@@ -34,15 +34,12 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
 
     // set up view event to mediator mapping
     control: {
-//        logInButton: {
-//            click: "onLoginButtonClick"
-//        },
+        "logInButton": {
+            click: "onLoginButtonClick"
+        },
         usernameTextField:      true,
         passwordTextField:      true,
         signInFailedLabel:      true,
-        "logInButton": {
-            click: "onLoginButtonClick"
-        }
     },
 
     ////////////////////////////////////////////////
@@ -83,6 +80,7 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
         var view = this.getView();
 
         this.reset();
+
         view.setLoading(nineam.locale.LocaleManager.getProperty("login.signingIn"));
 
         var evt = Ext.create("CafeTownsend.event.AuthenticationEvent", CafeTownsend.event.AuthenticationEvent.LOGIN, username, password);
@@ -131,7 +129,8 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
     onLoginSuccess: function() {
         this.logger.debug("onLoginSuccess");
 
-        this.getView().setLoading(false);
+        var view = this.getView();
+        view.setLoading(false);
     },
 
     /**
@@ -141,7 +140,9 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
     onLogoutSuccess: function() {
         this.logger.debug("onLoginSuccess");
 
-        this.getView().setLoading(false);
+        var view = this.getView();
+        view.setLoading(false);
+
         this.navigate(CafeTownsend.event.AuthenticationEvent.LOGOUT_SUCCESS);
     },
 
@@ -152,7 +153,9 @@ Ext.define("CafeTownsend.mediator.extjs.LoginMediator", {
     onLoginFailure: function() {
         this.logger.debug("onLoginFailure");
 
-        this.getView().setLoading(false);
+        var view = this.getView();
+        view.setLoading(false);
+
         this.showSignInFailedMessage(nineam.locale.LocaleManager.getProperty("login.loginFailed"));
     },
 
