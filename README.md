@@ -66,10 +66,9 @@ mediators differ
 
 This effort is still ongoing with some in-progress effort that will provide the following features:
 
-*  Lazy loading of views on demand - CafeTownsend
-*  Better DeftJS support so all dependencies are lazy loaded as opposed to at startup - CafeTownsend
-*  Unit Tests with Jasmine - FlowMVC & CafeTownsend (In Progress)
-*  Functional Tests with Siesta - FlowMVC & CafeTownsend
-*  Build Support - CafeTownsend
-*  Generate documentation with JSDuck
+*  Lazy loading of views on demand
+*  Better DeftJS support so all dependencies are lazy loaded as opposed to at startup
+*  Unit Tests with Jasmine - (In Progress)
+*  Functional Tests with Siesta
+*  Build Support
 *  Inject logger and use something other than console.log() which bombs in browsers like IE6
