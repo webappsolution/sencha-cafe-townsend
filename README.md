@@ -45,6 +45,8 @@ This example application reuses application and business objects (Events, Contro
 both the ExtJS and Touch versions leaving only the unique coding of the Views and Mediators (which should be form factor
 specific in UX and componentry).
 
+# Goals
+
 This port demonstrates the following:
 
 *  Separation-of-concerns for Model-View-Controller-Service
