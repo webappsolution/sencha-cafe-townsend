@@ -71,4 +71,3 @@ This effort is still ongoing with some in-progress effort that will provide the 
 *  Unit Tests with Jasmine - (In Progress)
 *  Functional Tests with Siesta
 *  Build Support
-*  Inject logger and use something other than console.log() which bombs in browsers like IE6
