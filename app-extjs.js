@@ -31,6 +31,7 @@ Ext.onReady(function () {
 
     // pull all of this in so they can be injected
     Ext.syncRequire([
+	    "CafeTownsend.view.extjs.Viewport",
         "CafeTownsend.service.AuthenticationService",
         "CafeTownsend.service.mock.AuthenticationServiceMock",
         "CafeTownsend.service.mock.EmployeeServiceMock",
@@ -117,8 +118,6 @@ Ext.application({
      */
     launch: function () {
         console.log("app.launch");
-
-//        Ext.getBody().mask();
 
         // Set up QuickTips and create the Viewport
         Ext.tip.QuickTipManager.init();
