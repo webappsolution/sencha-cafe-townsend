@@ -1,6 +1,6 @@
 # CafeTownsend
 
-### Sencha Touch, DeftJS, & WASI FlowMVC
+### Sencha ExtJS, Touch, DeftJS, & WASI FlowMVC
 
 This project is an HTML5/Javascript implementation of the infamous CafeTownsend application.
 CafeTownsend is a well known application created to demonstrate various MVC frameworks using Flex or ActionScript.
