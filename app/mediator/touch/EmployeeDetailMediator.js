@@ -235,7 +235,9 @@ Ext.define("CafeTownsend.mediator.touch.EmployeeDetailMediator", {
 
         var employee = this.getView().getRecord();
 
-        this.deleteEmployee(employee.data);
+	    if(employee) {
+		    this.deleteEmployee(employee.data);
+	    }
     }
 
 });
