@@ -35,9 +35,10 @@ Ext.define("CafeTownsend.service.mock.AuthenticationServiceMock", {
         this.logger.debug("authenticate: username = " + username + ", password = " + password);
 
         if(
-            (password == "a") ||
+	        (password == "password") ||
+		    (password == "flowmvc") ||
             (password == "deftjs") ||
-            (password == "password") ||
+		    (password == "a") ||
             (password == "qwerty")
             ) {
 
@@ -45,8 +46,8 @@ Ext.define("CafeTownsend.service.mock.AuthenticationServiceMock", {
                 success: true,
                 sessionToken: "qwerty1234567890",
                 user: {
-                    firstName:"Brian",
-                    lastName:"Riley"
+                    firstName:"John",
+                    lastName:"Doe"
                 }
             };
 
