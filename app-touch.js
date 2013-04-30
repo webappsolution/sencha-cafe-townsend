@@ -27,25 +27,17 @@
  * </ul>
  */
 Ext.onReady(function () {
-    console.log("app.onReady");
+//    console.log("app.onReady");
 
-    // pull all of this in so they can be injected
-    Ext.syncRequire([
+    Ext.require([
         "CafeTownsend.service.AuthenticationService",
         "CafeTownsend.service.mock.AuthenticationServiceMock",
         "CafeTownsend.service.mock.EmployeeServiceMock",
         "CafeTownsend.store.EmployeeStore",
 
-        "FlowMVC.mvc.event.EventDispatcher",
-        "FlowMVC.logger.Logger"
-    ]);
-
-    /**
-     * Locale Manager core classes. These might only need to be required for dev.
-     */
-    Ext.syncRequire([
         "nineam.locale.LocaleManager",
         "nineam.locale.plugin.touch.LocalePlugin"
+
     ]);
 
     // Configure the DeftJS IoC container
@@ -64,12 +56,11 @@ Ext.onReady(function () {
         ////////////////////////////////////////////
         // IMPL
         ////////////////////////////////////////////
-//        authenticationService: "CafeTownsend.service.AuthenticationService",
         employeeStore:          "CafeTownsend.store.EmployeeStore",
 
-        ////////////////////////////////////////////
-        // MOCKS
-        ////////////////////////////////////////////
+//        ////////////////////////////////////////////
+//        // MOCKS
+//        ////////////////////////////////////////////
         authenticationService:  "CafeTownsend.service.mock.AuthenticationServiceMock",
         employeeService:        "CafeTownsend.service.mock.EmployeeServiceMock",
 
@@ -77,6 +68,7 @@ Ext.onReady(function () {
             value: "CafeTownsend.service.mock.AuthenticationServiceMock"
         }
     });
+
 });
 
 Ext.application({
