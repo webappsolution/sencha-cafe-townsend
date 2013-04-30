@@ -1,24 +1,22 @@
 # CafeTownsend
 
-### Sencha ExtJS, Touch, DeftJS, & WASI FlowMVC
+### Sencha ExtJS, Touch, DeftJS, & FlowMVC
 
 This project is an HTML5/Javascript implementation of the infamous CafeTownsend application.
 CafeTownsend is a well known application created to demonstrate various MVC frameworks using Flex or ActionScript.
 There are known ports using Cairngorm, Mate, PureMVC, Spring ActionScript, RobotLegs and Swiz.
-This implementation uses Sencha Touch, Sencha ExtJS, DeftJS, FlowMVC, and some others:
+This implementation uses Sencha ExtJS, Sencha Touch, DeftJS, FlowMVC, and some others:
 
 *  [Sencha ExtJS](http://www.sencha.com/products/extjs) - Robust HTML5/JavaScript Framework for Desktop Applications
 *  [Sencha Touch](http://www.sencha.com/products/touch) - Robust HTML5/JavaScript Framework for Mobile Applications
 *  [DeftJS](https://github.com/deftjs/) - DeftJS enhances Sencha's ExtJS and Sencha Touch APIs with additional
 building blocks that enable large development teams to rapidly create enterprise-scale applications, leveraging best
 practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.
-*  [FlowMVC Extensions](http://TODO) - Additional foundational building blocks, infrastructure, and boilerplate
-code for building Sencha MVC applications.
+*  [FlowMVC](http://webappsolutioninc.github.io/flow-mvc/) - A reference architecture and MVC extensions 
+for developers using Sencha ExtJS or Touch with DeftJS.
 *  [LocaleManager](https://github.com/psmithiv/nineam-localization-plugin) - Runtime-enabled localization
 *  [Jasmine](http://pivotal.github.com/jasmine/) - Jasmine is a behavior-driven development framework for testing
 JavaScript code
-*  [Log4JavaScript](http://log4javascript.org/) - Jlog4javascript is a JavaScript logging framework based on the Java
-logging framework [log4j](http://logging.apache.org/log4j/).
 *  [JSDuck Documentation](https://github.com/senchalabs/jsduck) - API documentation generator for Sencha JavaScript
 frameworks 
 
@@ -50,7 +48,7 @@ specific in UX and componentry).
 This port demonstrates the following:
 
 *  Separation-of-concerns for Model-View-Controller-Service
-*  Dependency injection of services and stores using DeftJS
+*  Dependency injection of services, stores, and models
 *  Application-Level event bus communication
 *  Services as mocks and real HTTP data services
 *  Rigorous elimination of logic from View code using Mediators
@@ -67,7 +65,6 @@ mediators differ
 This effort is still ongoing with some in-progress effort that will provide the following features:
 
 *  Lazy loading of views on demand
-*  Better DeftJS support so all dependencies are lazy loaded as opposed to at startup
 *  Unit Tests with Jasmine - (In Progress)
 *  Functional Tests with Siesta
 *  Build Support
