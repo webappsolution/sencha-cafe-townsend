@@ -11,9 +11,9 @@ This implementation uses Sencha ExtJS, Sencha Touch, DeftJS, FlowMVC, and some o
 *  [Sencha Touch](http://www.sencha.com/products/touch) - Robust HTML5/JavaScript Framework for Mobile Applications
 *  [DeftJS](https://github.com/deftjs/) - DeftJS enhances Sencha's ExtJS and Sencha Touch APIs with additional
 building blocks that enable large development teams to rapidly create enterprise-scale applications, leveraging best
-practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.
+practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry
 *  [FlowMVC](http://webappsolutioninc.github.io/flow-mvc/) - A reference architecture and MVC extensions 
-for developers using Sencha ExtJS or Touch with DeftJS.
+for developers using Sencha ExtJS or Touch with DeftJS
 *  [LocaleManager](https://github.com/psmithiv/nineam-localization-plugin) - Runtime-enabled localization
 *  [Jasmine](http://pivotal.github.com/jasmine/) - Jasmine is a behavior-driven development framework for testing
 JavaScript code
@@ -47,6 +47,8 @@ specific in UX and componentry).
 
 This port demonstrates the following:
 
+*  Demonstrate the use of [FlowMVC](http://webappsolutioninc.github.io/flow-mvc/) with 
+[DeftJS](https://github.com/deftjs/)
 *  Separation-of-concerns for Model-View-Controller-Service
 *  Dependency injection of services, stores, and models
 *  Application-Level event bus communication
