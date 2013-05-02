@@ -66,7 +66,7 @@ mediators differ
 
 This effort is still ongoing with some in-progress effort that will provide the following features:
 
-*  Lazy loading of views on demand
-*  Unit Tests with Jasmine - (In Progress)
-*  Functional Tests with Siesta
-*  Build Support
+*  Unit Tests with Jasmine - (In Progress: only scaffolding for jasmine exists and you should see zero tests run)
+*  Lazy loading of views on demand (Not started)
+*  Functional Tests with Siesta (Not started)
+*  Build Support (Not started)
