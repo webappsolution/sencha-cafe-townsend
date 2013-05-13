@@ -2,7 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../flow-mvc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../nineam-localization-plugin" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$USER_HOME$/projects/wasi/web-site/tech/workspace/WASIWebSiteV2" vcs="svn" />
   </component>
 </project>
 
