@@ -65,7 +65,7 @@ Ext.onReady(function () {
         ////////////////////////////////////////////
         // IMPL
         ////////////////////////////////////////////
-//        authenticationService: "CafeTownsend.service.AuthenticationService",
+//        authenticationService:  "CafeTownsend.service.AuthenticationService",
         employeeStore:          "CafeTownsend.store.EmployeeStore",
 
         ////////////////////////////////////////////

@@ -3,7 +3,7 @@
  */
 Ext.Loader.setPath({
     "CafeTownsend":     "app",
-    "FlowMVC":          "lib/flow-mvc-0.1.0/FlowMVC",
+//    "FlowMVC":          "lib/flow-mvc-0.1.0/FlowMVC",
     "Deft":             "lib/deft-0.8.8/Deft",
     "nineam":           "lib/locale/nineam",
 
@@ -39,6 +39,6 @@ Ext.syncRequire([
 /**
  * FlowMVC core classes. These might only need to be required for dev.
  */
-Ext.syncRequire([
-    "FlowMVC.logger.Logger"
-]);
+//Ext.syncRequire([
+//    "FlowMVC.logger.Logger"
+//]);

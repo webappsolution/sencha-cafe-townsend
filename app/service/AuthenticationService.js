@@ -34,30 +34,29 @@ Ext.define("CafeTownsend.service.AuthenticationService", {
     authenticate: function(username, password) {
         this.logger.debug("authenticate: username = " + username + ", password = " + password);
 
-        var deferred = Ext.create("Deft.promise.Deferred");
+	    var token = this.getTokenOrPromise();
         var me = this;
 
         Ext.Ajax.request({
             url: "data/login-success.json",
-//            url: "http://localhost:8080/SenchaDemo",
             method: "post",
             params: {
-                j_username: username,
-                j_password: password
+                username: username,
+                password: password
             },
 
             success: function(response) {
-                this.logger.debug("authenticate.success");
-                me.success(response, deferred);
+                me.logger.debug("authenticate.success");
+                me.success(response, token);
             },
 
             failure: function(response) {
-                this.logger.debug("authenticate.failure");
-                me.failure(response, deferred);
+                me.logger.warn("authenticate.failure");
+	            me.failure(response, token);
             }
         });
 
-        return deferred.promise;
+	    return token;
     },
 
     /**
@@ -66,6 +65,7 @@ Ext.define("CafeTownsend.service.AuthenticationService", {
     logout: function() {
         this.logger.debug("logout");
 
+	    var token = this.getTokenOrPromise();
         var me = this;
 
         Ext.Ajax.request({
@@ -73,17 +73,19 @@ Ext.define("CafeTownsend.service.AuthenticationService", {
             method: "post",
 
             success: function(response) {
-                this.logger.debug("logout.success");
+                me.logger.debug("logout.success");
 
                 var response = Ext.JSON.decode(response.responseText);
-                me.success(response);
+                me.success(response, token);
             },
 
             failure: function(response) {
-                this.logger.debug("logout.failure");
-                me.failure(response);
+	            me.logger.warn("logout.failure");
+                me.failure(response, token);
             }
         });
+
+	    return token;
     }
 
 });

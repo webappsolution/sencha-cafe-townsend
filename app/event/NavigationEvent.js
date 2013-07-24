@@ -24,8 +24,8 @@ Ext.define("CafeTownsend.event.NavigationEvent", {
     statics: {
         NAVIGATE:                           "navigate",
 
-        RIGHT:                              "navigtaeRight",
-        LEFT:                               "navigtaeLeft",
+        RIGHT:                              "navigateRight",
+        LEFT:                               "navigateLeft",
 
         ACTION_BACK_SHOW_EMPLOYEE_LIST:     "actionBackShowEmployeeList",
         ACTION_SHOW_EMPLOYEE_DETAIL:        "actionShowEmployeeDetail"

@@ -56,11 +56,12 @@ Ext.onReady(function () {
         ////////////////////////////////////////////
         // IMPL
         ////////////////////////////////////////////
+//	    authenticationService:  "CafeTownsend.service.AuthenticationService",
         employeeStore:          "CafeTownsend.store.EmployeeStore",
 
-//        ////////////////////////////////////////////
-//        // MOCKS
-//        ////////////////////////////////////////////
+        ////////////////////////////////////////////
+        // MOCKS
+        ////////////////////////////////////////////
         authenticationService:  "CafeTownsend.service.mock.AuthenticationServiceMock",
         employeeService:        "CafeTownsend.service.mock.EmployeeServiceMock",
 
