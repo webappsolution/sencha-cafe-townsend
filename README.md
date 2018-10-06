@@ -15,7 +15,7 @@ practices and proven patterns discovered by top RIA developers at some of the be
 *  [FlowMVC](http://github.com/webappsolution/flow-mvc/) - A reference architecture and MVC extensions 
 for developers using Sencha ExtJS or Touch with DeftJS
 *  [LocaleManager](https://github.com/psmithiv/nineam-localization-plugin) - Runtime-enabled localization
-*  [Jasmine](http://pivotal.github.com/jasmine/) - Jasmine is a behavior-driven development framework for testing
+*  [Jasmine](https://jasmine.github.io/) - Jasmine is a behavior-driven development framework for testing
 JavaScript code
 *  [JSDuck Documentation](https://github.com/senchalabs/jsduck) - API documentation generator for Sencha JavaScript
 frameworks 
